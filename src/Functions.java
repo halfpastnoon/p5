@@ -959,14 +959,6 @@ public final class Functions
         world.background[pos.y][pos.x] = background;
     }
 
-    public static Point viewportToWorld(Viewport viewport, int col, int row) {
-        return new Point(col + viewport.col, row + viewport.row);
-    }
-
-    public static Point worldToViewport(Viewport viewport, int col, int row) {
-        return new Point(col - viewport.col, row - viewport.row);
-    }
-
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
     }
@@ -983,7 +975,7 @@ public final class Functions
     public static void drawBackground(WorldView view) {
         for (int row = 0; row < view.viewport.numRows; row++) {
             for (int col = 0; col < view.viewport.numCols; col++) {
-                Point worldPoint = viewportToWorld(view.viewport, col, row);
+                Point worldPoint =  view.viewport.viewportToWorld(col, row);
                 Optional<PImage> image =
                         getBackgroundImage(view.world, worldPoint);
                 if (image.isPresent()) {
@@ -999,7 +991,7 @@ public final class Functions
             Point pos = entity.position;
 
             if (contains(view.viewport, pos)) {
-                Point viewPoint = worldToViewport(view.viewport, pos.x, pos.y);
+                Point viewPoint = view.viewport.worldToViewport(pos.x, pos.y);
                 view.screen.image(getCurrentImage(entity),
                                   viewPoint.x * view.tileWidth,
                                   viewPoint.y * view.tileHeight);
