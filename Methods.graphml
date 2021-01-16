@@ -117,18 +117,22 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="154.7522499047619" width="164.0" x="491.1169372294555" y="216.95834475564448"/>
+          <y:Geometry height="208.35944959999998" width="164.0" x="491.1169372294555" y="187.64190742231114"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.89453125" x="52.552734375" xml:space="preserve" y="3.0">Viewport<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+row: int
-+col: int
-+numRows: int
-+numCols: int</y:AttributeLabel>
+            <y:AttributeLabel xml:space="preserve">-row: int
+-col: int
+-numRows: int
+-numCols: int</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+shift()
 +viewportToWorld(): Point
-+worldToViewport(): Point</y:MethodLabel>
++worldToViewport(): Point
++getRow():int
++getCol():int
++getNumRows(): int
++getNumCols():int</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
