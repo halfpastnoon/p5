@@ -294,9 +294,6 @@
             <y:MethodLabel xml:space="preserve">+getCurrentImage(): PImage            &lt;&lt;static&gt;&gt;
 +getAnimationPeriod(): int                   &lt;&lt;static&gt;&gt;
 +nextImage()                                 &lt;&lt;static&gt;&gt;
-+executeAction()                             &lt;&lt;static&gt;&gt;
-+executeAnimationAction()                    &lt;&lt;static&gt;&gt;
-+executeActivityAction()                     &lt;&lt;static&gt;&gt;
 +executeMinerFullActivity()                  &lt;&lt;static&gt;&gt;
 +executeMinerNotFullActivity()             &lt;&lt;static&gt;&gt;
 +executeOreActivity()                           &lt;&lt;static&gt;&gt;
@@ -370,17 +367,19 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="137.00000000000003" width="166.9936691209282" x="952.3742488466828" y="326.5821307194322"/>
+          <y:Geometry height="171.97156074792903" width="166.9936691209282" x="952.3742488466828" y="326.5821307194322"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="44.44091796875" x="61.276375576089094" xml:space="preserve" y="3.0">Action<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+kind: ActionKind
-+entity: Entity
-+world: WorldModel
-+imageStore: ImageStore
-+repeatCount: int</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:AttributeLabel xml:space="preserve">-kind: ActionKind
+-entity: Entity
+-world: WorldModel
+-imageStore: ImageStore
+-repeatCount: int</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+executeAnimationAction()
++executeAction()
++executeActivityAction()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
