@@ -19,7 +19,7 @@ public final class Action
         this.imageStore = imageStore;
         this.repeatCount = repeatCount;
     }
-    public void executeAnimationAction(EventScheduler scheduler)
+    private void executeAnimationAction(EventScheduler scheduler)
     {
         Functions.nextImage(this.entity);
 
@@ -44,7 +44,7 @@ public final class Action
         }
     }
 
-    public void executeActivityAction(EventScheduler scheduler)
+    private void executeActivityAction(EventScheduler scheduler)
     {
         switch (this.entity.kind) {
             case MINER_FULL:

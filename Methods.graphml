@@ -379,9 +379,9 @@
 -world: WorldModel
 -imageStore: ImageStore
 -repeatCount: int</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+executeAnimationAction()
+            <y:MethodLabel xml:space="preserve">-executeAnimationAction()
 +executeAction()
-+executeActivityAction()</y:MethodLabel>
+-executeActivityAction()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
