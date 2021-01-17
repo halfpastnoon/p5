@@ -510,7 +510,7 @@ public final class Functions
     public static void removePendingEvent(
             EventScheduler scheduler, Event event)
     {
-        List<Event> pending = scheduler.pendingEvents.get(event.entity);
+        List<Event> pending = scheduler.pendingEvents.get(event.getEntity());
 
         if (pending != null) {
             pending.remove(event);
@@ -519,12 +519,12 @@ public final class Functions
 
     public static void updateOnTime(EventScheduler scheduler, long time) {
         while (!scheduler.eventQueue.isEmpty()
-                && scheduler.eventQueue.peek().time < time) {
+                && scheduler.eventQueue.peek().getTime() < time) {
             Event next = scheduler.eventQueue.poll();
 
             removePendingEvent(scheduler, next);
 
-            next.action.executeAction(scheduler);
+            next.getAction().executeAction(scheduler);
         }
     }
 
