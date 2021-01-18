@@ -36,7 +36,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="137.0" width="137.0" x="735.2455930380692" y="310.0719787310585"/>
+          <y:Geometry height="137.0" width="137.0" x="735.2455930380692" y="376.15651467829304"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="39.40087890625" x="48.799560546875" xml:space="preserve" y="3.0">Event<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -55,7 +55,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="65.18235205544829" width="137.0" x="735.2455930380692" y="477.0719787310585"/>
+          <y:Geometry height="65.18235205544829" width="137.0" x="735.2455930380692" y="547.8011248012173"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="113.078125" x="11.9609375" xml:space="preserve" y="3.0">EventComparator<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -294,17 +294,6 @@
 +BGND_COL: int                               &lt;&lt;static&gt;&gt;
 +BGND_ROW: int                               &lt;&lt;static&gt;&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+getCurrentImage(): PImage            &lt;&lt;static&gt;&gt;
-+getAnimationPeriod(): int                   &lt;&lt;static&gt;&gt;
-+nextImage()                                 &lt;&lt;static&gt;&gt;
-+executeMinerFullActivity()                  &lt;&lt;static&gt;&gt;
-+executeMinerNotFullActivity()             &lt;&lt;static&gt;&gt;
-+executeOreActivity()                           &lt;&lt;static&gt;&gt;
-+executeOreBlobActivity()                     &lt;&lt;static&gt;&gt;
-+executeQuakeActivity()                       &lt;&lt;static&gt;&gt;
-+executeVeinActivity()                          &lt;&lt;static&gt;&gt;
-+scheduleActions()                           &lt;&lt;static&gt;&gt;
-+transformNotFull(): boolean                 &lt;&lt;static&gt;&gt;
-+transformFull()                             &lt;&lt;static&gt;&gt;
 +moveToNotFull(): boolean                    &lt;&lt;static&gt;&gt;
 +moveToFull(): boolean                       &lt;&lt;static&gt;&gt;
 +moveToOreBlob(): boolean                    &lt;&lt;static&gt;&gt;
@@ -351,8 +340,6 @@
 +drawBackground()                            &lt;&lt;static&gt;&gt;
 +drawEntities()                              &lt;&lt;static&gt;&gt;
 +drawViewport()                              &lt;&lt;static&gt;&gt;
-+createAnimationAction(): Action             &lt;&lt;static&gt;&gt;
-+createActivityAction(): Action              &lt;&lt;static&gt;&gt;
 +createBlacksmith(): Entity                  &lt;&lt;static&gt;&gt;
 +createMinerFull(): Entity                   &lt;&lt;static&gt;&gt;
 +createMinerNotFull(): Entity                &lt;&lt;static&gt;&gt;
@@ -406,21 +393,39 @@ ANIMATION</y:AttributeLabel>
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="184.06479738398042" width="168.51625251004018" x="719.4874667830491" y="34.13426797467653"/>
+          <y:Geometry height="463.5704170526574" width="168.51625251004018" x="719.4874667830491" y="-105.61854185966192"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="40.11181640625" x="64.20221805189509" xml:space="preserve" y="3.0">Entity<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+kind: EntityKind
-+id: String
-+position: Point
-+images: List&lt;PImage&gt;
-+imageIndex: int
-+resourceLimit: int
-+resourceCount: int
-+actionPeriod: int
-+animationPeriod: int</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:AttributeLabel xml:space="preserve">-kind: EntityKind
+-id: String
+-position: Point
+-images: List&lt;PImage&gt;
+-imageIndex: int
+-resourceLimit: int
+-resourceCount: int
+-actionPeriod: int
+-animationPeriod: int</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+getAnimationPeriod(): int
++nextImage()
++createAnimationAction(): Action
++createActivityAction(): Action
++executeMinerFullActivity()
++executeMinerNotFullActivity()
++executeOreActivity()
++executeOreBlobActivity() 
++executeQuakeActivity()
++executeVeinActivity()
++scheduleActions()
++transformNotFull(): boolean
++transformFull()
++getPosition(): Point
++setPosition()
++getKind(): EntityKind
++getImages(): List&lt;PImage&gt;
++getResourceCount(): Int
++setResourceCount(): Int</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
