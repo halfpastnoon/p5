@@ -70,7 +70,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="103.97969602325259" width="273.0" x="137.33174949816248" y="392.66666666666674"/>
+          <y:Geometry height="147.77418619129992" width="273.0" x="137.33174949816248" y="375.5052077332915"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="102.25537109375" x="85.372314453125" xml:space="preserve" y="3.0">EventScheduler<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -78,7 +78,10 @@
             <y:AttributeLabel xml:space="preserve">+eventQueue: PriorityQueue&lt;Event&gt;
 +pendingEvents: Map&lt;Entity, List&lt;Event&gt;&gt;
 +timeScale: double</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:MethodLabel xml:space="preserve">+scheduleEvent()
++unscheduleAllEvents()
+-removePendingEvent()
++updateOnTime()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -87,7 +90,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="88.54873167545043" width="241.0" x="153.33174949816248" y="536.1179349912162"/>
+          <y:Geometry height="88.54873167545043" width="241.0" x="131.0051466673932" y="579.0537096657723"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.8017578125" x="83.09912109375" xml:space="preserve" y="3.0">ImageStore<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -301,10 +304,6 @@
 +nextPositionOreBlob(): Point                &lt;&lt;static&gt;&gt;
 +adjacent(): boolean                            &lt;&lt;static&gt;&gt;
 +findOpenAround(): Optional&lt;Point&gt;  &lt;&lt;static&gt;&gt;
-+scheduleEvent()                                  &lt;&lt;static&gt;&gt;
-+unscheduleAllEvents()                       &lt;&lt;static&gt;&gt;
-+removePendingEvent()                        &lt;&lt;static&gt;&gt;
-+updateOnTime()                              &lt;&lt;static&gt;&gt;
 +loadImages()                                &lt;&lt;static&gt;&gt;
 +processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;

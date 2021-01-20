@@ -103,7 +103,7 @@ public final class Functions
         if (adjacent(miner.getPosition(), target.getPosition())) {
             miner.setResourceCount(miner.getResourceCount() + 1);
             removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            scheduler.unscheduleAllEvents(target);
 
             return true;
         }
@@ -113,7 +113,7 @@ public final class Functions
             if (!miner.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, miner, nextPos);
@@ -137,7 +137,7 @@ public final class Functions
             if (!miner.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, miner, nextPos);
@@ -154,7 +154,7 @@ public final class Functions
     {
         if (adjacent(blob.getPosition(), target.getPosition())) {
             removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
@@ -163,7 +163,7 @@ public final class Functions
             if (!blob.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 moveEntity(world, blob, nextPos);
@@ -231,58 +231,6 @@ public final class Functions
         }
 
         return Optional.empty();
-    }
-
-    public static void scheduleEvent(
-            EventScheduler scheduler,
-            Entity entity,
-            Action action,
-            long afterPeriod)
-    {
-        long time = System.currentTimeMillis() + (long)(afterPeriod
-                * scheduler.timeScale);
-        Event event = new Event(action, time, entity);
-
-        scheduler.eventQueue.add(event);
-
-        // update list of pending events for the given entity
-        List<Event> pending = scheduler.pendingEvents.getOrDefault(entity,
-                                                                   new LinkedList<>());
-        pending.add(event);
-        scheduler.pendingEvents.put(entity, pending);
-    }
-
-    public static void unscheduleAllEvents(
-            EventScheduler scheduler, Entity entity)
-    {
-        List<Event> pending = scheduler.pendingEvents.remove(entity);
-
-        if (pending != null) {
-            for (Event event : pending) {
-                scheduler.eventQueue.remove(event);
-            }
-        }
-    }
-
-    public static void removePendingEvent(
-            EventScheduler scheduler, Event event)
-    {
-        List<Event> pending = scheduler.pendingEvents.get(event.getEntity());
-
-        if (pending != null) {
-            pending.remove(event);
-        }
-    }
-
-    public static void updateOnTime(EventScheduler scheduler, long time) {
-        while (!scheduler.eventQueue.isEmpty()
-                && scheduler.eventQueue.peek().getTime() < time) {
-            Event next = scheduler.eventQueue.poll();
-
-            removePendingEvent(scheduler, next);
-
-            next.getAction().executeAction(scheduler);
-        }
     }
 
     public static void loadImages(

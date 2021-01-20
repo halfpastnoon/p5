@@ -106,7 +106,7 @@ public final class Entity
             this.transformFull(world, scheduler, imageStore);
         }
         else {
-            Functions.scheduleEvent(scheduler, this,
+            scheduler.scheduleEvent(this,
                     this.createActivityAction(world, imageStore),
                     this.actionPeriod);
         }
@@ -125,7 +125,7 @@ public final class Entity
                 scheduler)
                 || !this.transformNotFull(world, scheduler, imageStore))
         {
-            Functions.scheduleEvent(scheduler, this,
+            scheduler.scheduleEvent(this,
                     this.createActivityAction(world, imageStore),
                     this.actionPeriod);
         }
@@ -139,7 +139,7 @@ public final class Entity
         Point pos = this.position;
 
         Functions.removeEntity(world, this);
-        Functions.unscheduleAllEvents(scheduler, this);
+        scheduler.unscheduleAllEvents(this);
 
         Entity blob = Functions.createOreBlob(this.id + Functions.BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / Functions.BLOB_PERIOD_SCALE,
@@ -174,7 +174,7 @@ public final class Entity
             }
         }
 
-        Functions.scheduleEvent(scheduler, this,
+        scheduler.scheduleEvent(this,
                 this.createActivityAction(world, imageStore),
                 nextPeriod);
     }
@@ -184,7 +184,7 @@ public final class Entity
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Functions.unscheduleAllEvents(scheduler, this);
+        scheduler.unscheduleAllEvents(this);
         Functions.removeEntity(world, this);
     }
 
@@ -204,7 +204,7 @@ public final class Entity
             ore.scheduleActions(scheduler, world, imageStore);
         }
 
-        Functions.scheduleEvent(scheduler, this,
+        scheduler.scheduleEvent(this,
                 this.createActivityAction(world, imageStore),
                 this.actionPeriod);
     }
@@ -216,49 +216,49 @@ public final class Entity
     {
         switch (this.kind) {
             case MINER_FULL:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
                         this.getAnimationPeriod());
                 break;
 
             case MINER_NOT_FULL:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
                         this.getAnimationPeriod());
                 break;
 
             case ORE:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
                 break;
 
             case ORE_BLOB:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
                         this.getAnimationPeriod());
                 break;
 
             case QUAKE:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
-                Functions.scheduleEvent(scheduler, this, this.createAnimationAction(
+                scheduler.scheduleEvent(this, this.createAnimationAction(
                         Functions.QUAKE_ANIMATION_REPEAT_COUNT),
                         this.getAnimationPeriod());
                 break;
 
             case VEIN:
-                Functions.scheduleEvent(scheduler, this,
+                scheduler.scheduleEvent(this,
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
                 break;
@@ -279,7 +279,7 @@ public final class Entity
                     this.images);
 
             Functions.removeEntity(world, this);
-            Functions.unscheduleAllEvents(scheduler, this);
+            scheduler.unscheduleAllEvents(this);
 
             Functions.addEntity(world, miner);
             miner.scheduleActions(scheduler, world, imageStore);
@@ -301,7 +301,7 @@ public final class Entity
                 this.images);
 
         Functions.removeEntity(world, this);
-        Functions.unscheduleAllEvents(scheduler, this);
+        scheduler.unscheduleAllEvents(this);
 
         Functions.addEntity(world, miner);
         miner.scheduleActions(scheduler, world, imageStore);
