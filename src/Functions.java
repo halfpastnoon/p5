@@ -105,7 +105,7 @@ public final class Functions
         for (int dy = -ORE_REACH; dy <= ORE_REACH; dy++) {
             for (int dx = -ORE_REACH; dx <= ORE_REACH; dx++) {
                 Point newPt = new Point(pos.x + dx, pos.y + dy);
-                if (withinBounds(world, newPt) && !isOccupied(world, newPt)) {
+                if (world.withinBounds(newPt) && !world.isOccupied(newPt)) {
                     return Optional.of(newPt);
                 }
             }
@@ -235,7 +235,7 @@ public final class Functions
             Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
                                  Integer.parseInt(properties[BGND_ROW]));
             String id = properties[BGND_ID];
-            setBackground(world, pt,
+            world.setBackground(pt,
                           new Background(id, imageStore.getImageList(id)));
         }
 
@@ -256,7 +256,7 @@ public final class Functions
                             properties[MINER_ANIMATION_PERIOD]),
                                                imageStore.getImageList(
                                                             MINER_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == MINER_NUM_PROPERTIES;
@@ -271,7 +271,7 @@ public final class Functions
             Entity entity = createObstacle(properties[OBSTACLE_ID], pt,
                                            imageStore.getImageList(
                                                         OBSTACLE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
@@ -286,7 +286,7 @@ public final class Functions
             Entity entity = createOre(properties[ORE_ID], pt, Integer.parseInt(
                     properties[ORE_ACTION_PERIOD]),
                                       imageStore.getImageList(ORE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == ORE_NUM_PROPERTIES;
@@ -301,7 +301,7 @@ public final class Functions
             Entity entity = createBlacksmith(properties[SMITH_ID], pt,
                                              imageStore.getImageList(
                                                           SMITH_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == SMITH_NUM_PROPERTIES;
@@ -317,29 +317,10 @@ public final class Functions
                                        Integer.parseInt(
                                                properties[VEIN_ACTION_PERIOD]),
                                        imageStore.getImageList(VEIN_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == VEIN_NUM_PROPERTIES;
-    }
-
-    public static void tryAddEntity(WorldModel world, Entity entity) {
-        if (isOccupied(world, entity.getPosition())) {
-            // arguably the wrong type of exception, but we are not
-            // defining our own exceptions yet
-            throw new IllegalArgumentException("position occupied");
-        }
-
-        addEntity(world, entity);
-    }
-
-    public static boolean withinBounds(WorldModel world, Point pos) {
-        return pos.y >= 0 && pos.y < world.numRows && pos.x >= 0
-                && pos.x < world.numCols;
-    }
-
-    public static boolean isOccupied(WorldModel world, Point pos) {
-        return withinBounds(world, pos) && getOccupancyCell(world, pos) != null;
     }
 
     public static Optional<Entity> nearestEntity(
@@ -372,103 +353,7 @@ public final class Functions
         return deltaX * deltaX + deltaY * deltaY;
     }
 
-    public static Optional<Entity> findNearest(
-            WorldModel world, Point pos, EntityKind kind)
-    {
-        List<Entity> ofType = new LinkedList<>();
-        for (Entity entity : world.entities) {
-            if (entity.getKind() == kind) {
-                ofType.add(entity);
-            }
-        }
 
-        return nearestEntity(ofType, pos);
-    }
-
-    /*
-       Assumes that there is no entity currently occupying the
-       intended destination cell.
-    */
-    public static void addEntity(WorldModel world, Entity entity) {
-        if (withinBounds(world, entity.getPosition())) {
-            setOccupancyCell(world, entity.getPosition(), entity);
-            world.entities.add(entity);
-        }
-    }
-
-    public static void moveEntity(WorldModel world, Entity entity, Point pos) {
-        Point oldPos = entity.getPosition();
-        if (withinBounds(world, pos) && !pos.equals(oldPos)) {
-            setOccupancyCell(world, oldPos, null);
-            removeEntityAt(world, pos);
-            setOccupancyCell(world, pos, entity);
-            entity.setPosition(pos);
-        }
-    }
-
-    public static void removeEntity(WorldModel world, Entity entity) {
-        removeEntityAt(world, entity.getPosition());
-    }
-
-    public static void removeEntityAt(WorldModel world, Point pos) {
-        if (withinBounds(world, pos) && getOccupancyCell(world, pos) != null) {
-            Entity entity = getOccupancyCell(world, pos);
-
-            /* This moves the entity just outside of the grid for
-             * debugging purposes. */
-            entity.setPosition(new Point(-1, -1));
-            world.entities.remove(entity);
-            setOccupancyCell(world, pos, null);
-        }
-    }
-
-    public static Optional<PImage> getBackgroundImage(
-            WorldModel world, Point pos)
-    {
-        if (withinBounds(world, pos)) {
-            return Optional.of(getCurrentImage(getBackgroundCell(world, pos)));
-        }
-        else {
-            return Optional.empty();
-        }
-    }
-
-    public static void setBackground(
-            WorldModel world, Point pos, Background background)
-    {
-        if (withinBounds(world, pos)) {
-            setBackgroundCell(world, pos, background);
-        }
-    }
-
-    public static Optional<Entity> getOccupant(WorldModel world, Point pos) {
-        if (isOccupied(world, pos)) {
-            return Optional.of(getOccupancyCell(world, pos));
-        }
-        else {
-            return Optional.empty();
-        }
-    }
-
-    public static Entity getOccupancyCell(WorldModel world, Point pos) {
-        return world.occupancy[pos.y][pos.x];
-    }
-
-    public static void setOccupancyCell(
-            WorldModel world, Point pos, Entity entity)
-    {
-        world.occupancy[pos.y][pos.x] = entity;
-    }
-
-    public static Background getBackgroundCell(WorldModel world, Point pos) {
-        return world.background[pos.y][pos.x];
-    }
-
-    public static void setBackgroundCell(
-            WorldModel world, Point pos, Background background)
-    {
-        world.background[pos.y][pos.x] = background;
-    }
 
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
@@ -476,9 +361,9 @@ public final class Functions
 
     public static void shiftView(WorldView view, int colDelta, int rowDelta) {
         int newCol = clamp(view.viewport.getCol() + colDelta, 0,
-                           view.world.numCols - view.viewport.getNumCols());
+                           view.world.getNumCols() - view.viewport.getNumCols());
         int newRow = clamp(view.viewport.getRow() + rowDelta, 0,
-                           view.world.numRows - view.viewport.getNumRows());
+                           view.world.getNumRows() - view.viewport.getNumRows());
 
         view.viewport.shift(newCol, newRow);
     }
@@ -488,7 +373,7 @@ public final class Functions
             for (int col = 0; col < view.viewport.getNumCols(); col++) {
                 Point worldPoint =  view.viewport.viewportToWorld(col, row);
                 Optional<PImage> image =
-                        getBackgroundImage(view.world, worldPoint);
+                        view.world.getBackgroundImage(worldPoint);
                 if (image.isPresent()) {
                     view.screen.image(image.get(), col * view.tileWidth,
                                       row * view.tileHeight);
@@ -498,7 +383,7 @@ public final class Functions
     }
 
     public static void drawEntities(WorldView view) {
-        for (Entity entity : view.world.entities) {
+        for (Entity entity : view.world.getEntities()) {
             Point pos = entity.getPosition();
 
             if (view.viewport.contains(pos)) {

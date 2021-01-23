@@ -82,7 +82,7 @@ public final class Entity
         this.imageIndex = (this.imageIndex + 1) % this.images.size();
     }
 
-    public Action createAnimationAction(int repeatCount) {
+    public Action createAnimationAction(int repeatCount) { //talk about creates
         return new Action(ActionKind.ANIMATION, this, null, null,
                 repeatCount);
     }
@@ -98,7 +98,7 @@ public final class Entity
             EventScheduler scheduler)
     {
         Optional<Entity> fullTarget =
-                Functions.findNearest(world, this.position, EntityKind.BLACKSMITH);
+                world.findNearest(this.position, EntityKind.BLACKSMITH);
 
         if (fullTarget.isPresent() && moveToFull(world,
                 fullTarget.get(), scheduler))
@@ -118,7 +118,7 @@ public final class Entity
             EventScheduler scheduler)
     {
         Optional<Entity> notFullTarget =
-                Functions.findNearest(world, this.position, EntityKind.ORE);
+                world.findNearest(this.position, EntityKind.ORE);
 
         if (!notFullTarget.isPresent() || !moveToNotFull(world,
                 notFullTarget.get(),
@@ -138,7 +138,7 @@ public final class Entity
     {
         Point pos = this.position;
 
-        Functions.removeEntity(world, this);
+        world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
         Entity blob = Functions.createOreBlob(this.id + Functions.BLOB_ID_SUFFIX, pos,
@@ -148,7 +148,7 @@ public final class Entity
                                 - Functions.BLOB_ANIMATION_MIN),
                 imageStore.getImageList(Functions.BLOB_KEY));
 
-        Functions.addEntity(world, blob);
+        world.addEntity(blob);
         blob.scheduleActions(scheduler, world, imageStore);
     }
 
@@ -158,7 +158,7 @@ public final class Entity
             EventScheduler scheduler)
     {
         Optional<Entity> blobTarget =
-                Functions.findNearest(world, this.position, EntityKind.VEIN);
+                world.findNearest(this.position, EntityKind.VEIN);
         long nextPeriod = this.actionPeriod;
 
         if (blobTarget.isPresent()) {
@@ -168,7 +168,7 @@ public final class Entity
                 Entity quake = Functions.createQuake(tgtPos,
                         imageStore.getImageList(Functions.QUAKE_KEY));
 
-                Functions.addEntity(world, quake);
+                world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
                 quake.scheduleActions(scheduler, world, imageStore);
             }
@@ -185,7 +185,7 @@ public final class Entity
             EventScheduler scheduler)
     {
         scheduler.unscheduleAllEvents(this);
-        Functions.removeEntity(world, this);
+        world.removeEntity(this);
     }
 
     public void executeVeinActivity(
@@ -200,7 +200,7 @@ public final class Entity
                     Functions.ORE_CORRUPT_MIN + Functions.rand.nextInt(
                             Functions.ORE_CORRUPT_MAX - Functions.ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
-            Functions.addEntity(world, ore);
+            world.addEntity(ore);
             ore.scheduleActions(scheduler, world, imageStore);
         }
 
@@ -278,10 +278,10 @@ public final class Entity
                     this.animationPeriod,
                     this.images);
 
-            Functions.removeEntity(world, this);
+            world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
 
-            Functions.addEntity(world, miner);
+            world.addEntity(miner);
             miner.scheduleActions(scheduler, world, imageStore);
 
             return true;
@@ -300,10 +300,10 @@ public final class Entity
                 this.animationPeriod,
                 this.images);
 
-        Functions.removeEntity(world, this);
+        world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Functions.addEntity(world, miner);
+        world.addEntity(miner);
         miner.scheduleActions(scheduler, world, imageStore);
     }
 
@@ -312,23 +312,23 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
+        if (Functions.adjacent(this.position, target.position)) {
             this.setResourceCount(this.getResourceCount() + 1);
-            Functions.removeEntity(world, target);
+            world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
 
             return true;
         }
         else {
-            Point nextPos = this.nextPositionMiner(world, target.getPosition());
+            Point nextPos = this.nextPositionMiner(world, target.position);
 
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = Functions.getOccupant(world, nextPos);
+            if (!this.position.equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                Functions.moveEntity(world, this, nextPos);
+                world.moveEntity(this, nextPos);
             }
             return false;
         }
@@ -339,19 +339,19 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
+        if (Functions.adjacent(this.position, target.position)) {
             return true;
         }
         else {
-            Point nextPos = this.nextPositionMiner(world, target.getPosition());
+            Point nextPos = this.nextPositionMiner(world, target.position);
 
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = Functions.getOccupant(world, nextPos);
+            if (!this.position.equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                Functions.moveEntity(world, this, nextPos);
+                world.moveEntity(this, nextPos);
             }
             return false;
         }
@@ -362,21 +362,21 @@ public final class Entity
             Entity target,
             EventScheduler scheduler)
     {
-        if (Functions.adjacent(this.getPosition(), target.getPosition())) {
-            Functions.removeEntity(world, target);
+        if (Functions.adjacent(this.position, target.position)) {
+            world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
-            Point nextPos = this.nextPositionOreBlob(world, target.getPosition());
+            Point nextPos = this.nextPositionOreBlob(world, target.position);
 
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = Functions.getOccupant(world, nextPos);
+            if (!this.position.equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                Functions.moveEntity(world, this, nextPos);
+                world.moveEntity(this, nextPos);
             }
             return false;
         }
@@ -384,15 +384,15 @@ public final class Entity
 
     private Point nextPositionMiner(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
+        int horiz = Integer.signum(destPos.x - this.position.x);
+        Point newPos = new Point(this.position.x + horiz, this.position.y);
 
-        if (horiz == 0 || Functions.isOccupied(world, newPos)) {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
+        if (horiz == 0 || world.isOccupied(newPos)) {
+            int vert = Integer.signum(destPos.y - this.position.y);
+            newPos = new Point(this.position.x, this.position.y + vert);
 
-            if (vert == 0 || Functions.isOccupied(world, newPos)) {
-                newPos = this.getPosition();
+            if (vert == 0 || world.isOccupied(newPos)) {
+                newPos = this.position;
             }
         }
 
@@ -401,22 +401,22 @@ public final class Entity
 
     private Point nextPositionOreBlob(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
+        int horiz = Integer.signum(destPos.x - this.position.x);
+        Point newPos = new Point(this.position.x + horiz, this.position.y);
 
-        Optional<Entity> occupant = Functions.getOccupant(world, newPos);
+        Optional<Entity> occupant = world.getOccupant(newPos);
 
         if (horiz == 0 || (occupant.isPresent() && !(occupant.get().getKind()
                 == EntityKind.ORE)))
         {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
-            occupant = Functions.getOccupant(world, newPos);
+            int vert = Integer.signum(destPos.y - this.position.y);
+            newPos = new Point(this.position.x, this.position.y + vert);
+            occupant = world.getOccupant(newPos);
 
             if (vert == 0 || (occupant.isPresent() && !(occupant.get().getKind()
                     == EntityKind.ORE)))
             {
-                newPos = this.getPosition();
+                newPos = this.position;
             }
         }
 
