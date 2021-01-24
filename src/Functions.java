@@ -289,31 +289,6 @@ public final class Functions
         return properties.length == VEIN_NUM_PROPERTIES;
     }
 
-    public static Optional<Entity> nearestEntity(
-            List<Entity> entities, Point pos)
-    {
-        if (entities.isEmpty()) {
-            return Optional.empty();
-        }
-        else {
-            Entity nearest = entities.get(0);
-            int nearestDistance = nearest.getPosition().distanceSquared(pos);
-
-            for (Entity other : entities) {
-                int otherDistance = other.getPosition().distanceSquared(pos);
-
-                if (otherDistance < nearestDistance) {
-                    nearest = other;
-                    nearestDistance = otherDistance;
-                }
-            }
-
-            return Optional.of(nearest);
-        }
-    }
-
-
-
     public static Entity createBlacksmith(
             String id, Point position, List<PImage> images)
     {

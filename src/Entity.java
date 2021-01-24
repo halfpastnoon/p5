@@ -427,6 +427,29 @@ public final class Entity
         return getImages().get(getImageIndex());
     }
 
+    public static Optional<Entity> nearestEntity( //accesses private data so it goes in here but not instance data so we keep em static
+            List<Entity> entities, Point pos)
+    {
+        if (entities.isEmpty()) {
+            return Optional.empty();
+        }
+        else {
+            Entity nearest = entities.get(0);
+            int nearestDistance = nearest.position.distanceSquared(pos);
+
+            for (Entity other : entities) {
+                int otherDistance = other.position.distanceSquared(pos);
+
+                if (otherDistance < nearestDistance) {
+                    nearest = other;
+                    nearestDistance = otherDistance;
+                }
+            }
+
+            return Optional.of(nearest);
+        }
+    }
+
 
 
 

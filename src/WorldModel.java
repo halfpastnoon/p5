@@ -43,7 +43,7 @@ public final class WorldModel
             }
         }
 
-        return Functions.nearestEntity(ofType, pos);
+        return Entity.nearestEntity(ofType, pos);
     }
 
     /*
