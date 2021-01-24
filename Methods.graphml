@@ -89,7 +89,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="88.54873167545043" width="241.0" x="-83.06319488053578" y="718.5490633793818"/>
+          <y:Geometry height="125.4843103677888" width="241.0" x="-83.06319488053578" y="718.5490633793818"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.8017578125" x="83.09912109375" xml:space="preserve" y="3.0">ImageStore<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -97,7 +97,7 @@
             <y:AttributeLabel xml:space="preserve">-images: Map&lt;String, List&lt;PImage&gt;&gt;
 -defaultImages: List&lt;PImage&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+getImageList(): List&lt;PImage&gt;
-+getImages(): Map&lt;String, List&lt;PImage&gt;&gt;</y:MethodLabel>
++loadImages()</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -309,8 +309,7 @@
 +BGND_ID: int                                &lt;&lt;static&gt;&gt;
 +BGND_COL: int                               &lt;&lt;static&gt;&gt;
 +BGND_ROW: int                               &lt;&lt;static&gt;&gt;</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+loadImages()                                &lt;&lt;static&gt;&gt;
-+processImageLine()                          &lt;&lt;static&gt;&gt;
+            <y:MethodLabel xml:space="preserve">+processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
 +setAlpha()                                  &lt;&lt;static&gt;&gt;
 +load()                                      &lt;&lt;static&gt;&gt;
