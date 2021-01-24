@@ -423,6 +423,10 @@ public final class Entity
         return newPos;
     }
 
+    public PImage getCurrentImage(){
+        return getImages().get(getImageIndex());
+    }
+
 
 
 

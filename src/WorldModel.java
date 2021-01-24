@@ -86,7 +86,7 @@ public final class WorldModel
     public Optional<PImage> getBackgroundImage(Point pos)
     {
         if (withinBounds(pos)) {
-            return Optional.of(Functions.getCurrentImage(getBackgroundCell(pos)));
+            return Optional.of(getBackgroundCell(pos).getCurrentImage());
         }
         else {
             return Optional.empty();

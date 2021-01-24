@@ -79,21 +79,6 @@ public final class Functions
     public static final int VEIN_ACTION_PERIOD = 4;
 
 
-    public static PImage getCurrentImage(Object entity) {
-        if (entity instanceof Background) {
-            return ((Background)entity).getImages().get(
-                    ((Background)entity).getImageIndex());
-        }
-        else if (entity instanceof Entity) {
-            return ((Entity)entity).getImages().get(((Entity)entity).getImageIndex());
-        }
-        else {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                                  entity));
-        }
-    }
-
 
 
     public static boolean adjacent(Point p1, Point p2) {
