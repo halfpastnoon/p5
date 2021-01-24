@@ -1,10 +1,24 @@
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import processing.core.PImage;
 
 public final class Entity
 {
+    private static final Random rand = new Random();
+
+    private static final String BLOB_KEY = "blob";
+    private static final String BLOB_ID_SUFFIX = " -- blob";
+    private static final int BLOB_PERIOD_SCALE = 4;
+    private static final int BLOB_ANIMATION_MIN = 50;
+    private static final int BLOB_ANIMATION_MAX = 150;
+    private static final String ORE_ID_PREFIX = "ore -- ";
+    private static final int ORE_CORRUPT_MIN = 20000;
+    private static final int ORE_CORRUPT_MAX = 30000;
+    private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+    private static final String QUAKE_KEY = "quake";
+
     private EntityKind kind;
     private String id;
     private Point position;
@@ -141,12 +155,12 @@ public final class Entity
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Functions.createOreBlob(this.id + Functions.BLOB_ID_SUFFIX, pos,
-                this.actionPeriod / Functions.BLOB_PERIOD_SCALE,
-                Functions.BLOB_ANIMATION_MIN + Functions.rand.nextInt(
-                        Functions.BLOB_ANIMATION_MAX
-                                - Functions.BLOB_ANIMATION_MIN),
-                imageStore.getImageList(Functions.BLOB_KEY));
+        Entity blob = Functions.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
+                this.actionPeriod / BLOB_PERIOD_SCALE,
+                BLOB_ANIMATION_MIN + rand.nextInt(
+                        BLOB_ANIMATION_MAX
+                                - BLOB_ANIMATION_MIN),
+                imageStore.getImageList(BLOB_KEY));
 
         world.addEntity(blob);
         blob.scheduleActions(scheduler, world, imageStore);
@@ -166,7 +180,7 @@ public final class Entity
 
             if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
                 Entity quake = Functions.createQuake(tgtPos,
-                        imageStore.getImageList(Functions.QUAKE_KEY));
+                        imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
@@ -196,9 +210,9 @@ public final class Entity
         Optional<Point> openPt = world.findOpenAround(position);
 
         if (openPt.isPresent()) {
-            Entity ore = Functions.createOre(Functions.ORE_ID_PREFIX + this.id, openPt.get(),
-                    Functions.ORE_CORRUPT_MIN + Functions.rand.nextInt(
-                            Functions.ORE_CORRUPT_MAX - Functions.ORE_CORRUPT_MIN),
+            Entity ore = Functions.createOre(ORE_ID_PREFIX + this.id, openPt.get(),
+                    ORE_CORRUPT_MIN + rand.nextInt(
+                            ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
             world.addEntity(ore);
             ore.scheduleActions(scheduler, world, imageStore);
@@ -253,7 +267,7 @@ public final class Entity
                         this.createActivityAction(world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this, this.createAnimationAction(
-                        Functions.QUAKE_ANIMATION_REPEAT_COUNT),
+                        QUAKE_ANIMATION_REPEAT_COUNT),
                         this.getAnimationPeriod());
                 break;
 
@@ -406,14 +420,14 @@ public final class Entity
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
-        if (horiz == 0 || (occupant.isPresent() && !(occupant.get().getKind()
+        if (horiz == 0 || (occupant.isPresent() && !(occupant.get().kind
                 == EntityKind.ORE)))
         {
             int vert = Integer.signum(destPos.y - this.position.y);
             newPos = new Point(this.position.x, this.position.y + vert);
             occupant = world.getOccupant(newPos);
 
-            if (vert == 0 || (occupant.isPresent() && !(occupant.get().getKind()
+            if (vert == 0 || (occupant.isPresent() && !(occupant.get().kind
                     == EntityKind.ORE)))
             {
                 newPos = this.position;
