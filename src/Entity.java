@@ -62,22 +62,6 @@ public final class Entity
         return this.kind;
     }
 
-    public List<PImage> getImages(){
-        return this.images;
-    }
-
-    public int getImageIndex() {
-        return this.imageIndex;
-    }
-
-    public int getResourceCount() {
-        return this.resourceCount;
-    }
-
-    public void setResourceCount(int count){
-        this.resourceCount = count;
-    }
-
     public int getAnimationPeriod() {
         switch (this.kind) {
             case MINER_FULL:
@@ -235,7 +219,7 @@ public final class Entity
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
-                        this.getAnimationPeriod());
+                        animationPeriod);
                 break;
 
             case MINER_NOT_FULL:
@@ -244,7 +228,7 @@ public final class Entity
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
-                        this.getAnimationPeriod());
+                        animationPeriod);
                 break;
 
             case ORE:
@@ -259,7 +243,7 @@ public final class Entity
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
                         this.createAnimationAction(0),
-                        this.getAnimationPeriod());
+                        animationPeriod);
                 break;
 
             case QUAKE:
@@ -268,7 +252,7 @@ public final class Entity
                         this.actionPeriod);
                 scheduler.scheduleEvent(this, this.createAnimationAction(
                         QUAKE_ANIMATION_REPEAT_COUNT),
-                        this.getAnimationPeriod());
+                        animationPeriod);
                 break;
 
             case VEIN:
@@ -327,7 +311,7 @@ public final class Entity
             EventScheduler scheduler)
     {
         if (position.adjacent(target.position)) {
-            this.setResourceCount(this.getResourceCount() + 1);
+            resourceCount++;
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
 
@@ -438,7 +422,7 @@ public final class Entity
     }
 
     public PImage getCurrentImage(){
-        return getImages().get(getImageIndex());
+        return images.get(imageIndex);
     }
 
     public static Optional<Entity> nearestEntity( //accesses private data so it goes in here but not instance data so we keep em static
