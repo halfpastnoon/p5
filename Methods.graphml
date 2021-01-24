@@ -108,7 +108,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="103.97969602325259" width="133.0" x="965.0200480078104" y="192.6024346961796"/>
+          <y:Geometry height="119.91214401252068" width="133.0" x="965.0200480078104" y="192.6024346961796"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="36.49365234375" x="48.253173828125" xml:space="preserve" y="3.0">Point<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -116,7 +116,9 @@
             <y:AttributeLabel xml:space="preserve">+x: int
 +y: int</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+toString(): String
-+equals(): boolean</y:MethodLabel>
++equals(): boolean
++adjacent(): boolean
++distanceSquared(): int</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -125,7 +127,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="208.35944959999998" width="164.0" x="491.1169372294555" y="187.64190742231114"/>
+          <y:Geometry height="227.20706029822483" width="164.0" x="491.1169372294555" y="187.64190742231114"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.89453125" x="52.552734375" xml:space="preserve" y="3.0">Viewport<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -140,7 +142,8 @@
 +getRow():int
 +getCol():int
 +getNumRows(): int
-+getNumCols():int</y:MethodLabel>
++getNumCols():int
++contains(): boolean</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -319,12 +322,10 @@
 +BGND_ID: int                                &lt;&lt;static&gt;&gt;
 +BGND_COL: int                               &lt;&lt;static&gt;&gt;
 +BGND_ROW: int                               &lt;&lt;static&gt;&gt;</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+adjacent(): boolean                            &lt;&lt;static&gt;&gt;
-+loadImages()                                &lt;&lt;static&gt;&gt;
+            <y:MethodLabel xml:space="preserve">+loadImages()                                &lt;&lt;static&gt;&gt;
 +processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
 +setAlpha()                                  &lt;&lt;static&gt;&gt;
-+contains(): boolean                         &lt;&lt;static&gt;&gt;
 +load()                                      &lt;&lt;static&gt;&gt;
 +processLine(): boolean                      &lt;&lt;static&gt;&gt;
 +parseBackground(): boolean                  &lt;&lt;static&gt;&gt;
@@ -334,7 +335,6 @@
 +parseSmith(): boolean                       &lt;&lt;static&gt;&gt;
 +parseVein(): boolean                        &lt;&lt;static&gt;&gt;
 +nearestEntity(): Optional&lt;Entity&gt;           &lt;&lt;static&gt;&gt;
-+distanceSquared(): int                      &lt;&lt;static&gt;&gt;
 +createBlacksmith(): Entity                  &lt;&lt;static&gt;&gt;
 +createMinerFull(): Entity                   &lt;&lt;static&gt;&gt;
 +createMinerNotFull(): Entity                &lt;&lt;static&gt;&gt;

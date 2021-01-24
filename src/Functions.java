@@ -80,13 +80,6 @@ public final class Functions
 
 
 
-
-    public static boolean adjacent(Point p1, Point p2) {
-        return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
-                && Math.abs(p1.x - p2.x) == 1);
-    }
-
-
     public static void loadImages(
             Scanner in, ImageStore imageStore, PApplet screen)
     {
@@ -304,10 +297,10 @@ public final class Functions
         }
         else {
             Entity nearest = entities.get(0);
-            int nearestDistance = distanceSquared(nearest.getPosition(), pos);
+            int nearestDistance = nearest.getPosition().distanceSquared(pos);
 
             for (Entity other : entities) {
-                int otherDistance = distanceSquared(other.getPosition(), pos);
+                int otherDistance = other.getPosition().distanceSquared(pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = other;
@@ -317,13 +310,6 @@ public final class Functions
 
             return Optional.of(nearest);
         }
-    }
-
-    public static int distanceSquared(Point p1, Point p2) {
-        int deltaX = p1.x - p2.x;
-        int deltaY = p1.y - p2.y;
-
-        return deltaX * deltaX + deltaY * deltaY;
     }
 
 
