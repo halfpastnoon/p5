@@ -193,7 +193,7 @@ public final class Entity
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Point> openPt = Functions.findOpenAround(world, this.position);
+        Optional<Point> openPt = world.findOpenAround(position);
 
         if (openPt.isPresent()) {
             Entity ore = Functions.createOre(Functions.ORE_ID_PREFIX + this.id, openPt.get(),

@@ -86,18 +86,6 @@ public final class Functions
                 && Math.abs(p1.x - p2.x) == 1);
     }
 
-    public static Optional<Point> findOpenAround(WorldModel world, Point pos) {
-        for (int dy = -ORE_REACH; dy <= ORE_REACH; dy++) {
-            for (int dx = -ORE_REACH; dx <= ORE_REACH; dx++) {
-                Point newPt = new Point(pos.x + dx, pos.y + dy);
-                if (world.withinBounds(newPt) && !world.isOccupied(newPt)) {
-                    return Optional.of(newPt);
-                }
-            }
-        }
-
-        return Optional.empty();
-    }
 
     public static void loadImages(
             Scanner in, ImageStore imageStore, PApplet screen)
