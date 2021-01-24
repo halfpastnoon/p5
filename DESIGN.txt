@@ -1,16 +1,41 @@
-Functions Left Alone: Why they were left
-loadImages
-processImageLine
-getImages
-setAlpha
+Functions Left Alone:
+
+processImageLine()
+getImages()
+setAlpha()
+load()
+processLine()
+parseBackground()
+parseMine()
+parseObstacle()
+parseOre()
+parseSmith()
+parseVein()
+createBlacksmith()
+createMinerFull()
+createMinerNotFull()
+createObstacle()
+createOre()
+createOreBlob()
+createQuake()
+createVein()
+
+
+Why I Left Them:
+
+I left these functions alone because they all either just make a constructor call for a
+specific type of entity which doesnt really fit anywhere or they use no instance data from
+any of the classes we were asked to refactor.
 
 
 
 
 
 
-
-
-
+Debatable Functions
 
 contains(): I moved this method into the viewport class because it is used to see if a viewport contains a certain point (I think)
+clamp(): clamp actually didnt use any instance data but was only used by one class so I decided to give it to that class and keep it static
+nearestEntity(): this one was also strange like clamp but I decided to put it in the entity class because it uses private data but kept it static because its not instance data
+scheduleActions(): this one was a bit debatable, but I decided to put it in entity because it used a lot of its instance data, more so than WorldModel
+getCurrentImage(): I decided to split this one up and skip checking for an invalid type, makes more sense that way, in both entity and background
