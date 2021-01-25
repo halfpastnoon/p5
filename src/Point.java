@@ -17,7 +17,7 @@ public final class Point
                 && ((Point)other).y == this.y;
     }
 
-    public int hashCode() {
+    public int hashCode() { //i didnt put this in here but im 90% sure it didnt come with uml
         int result = 17;
         result = result * 31 + x;
         result = result * 31 + y;

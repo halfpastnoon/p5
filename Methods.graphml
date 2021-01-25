@@ -106,7 +106,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="119.91214401252068" width="133.0" x="965.0200480078104" y="192.6024346961796"/>
+          <y:Geometry height="147.90435228419184" width="133.0" x="965.0200480078104" y="167.58414068383343"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="36.49365234375" x="48.253173828125" xml:space="preserve" y="3.0">Point<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -116,7 +116,8 @@
             <y:MethodLabel xml:space="preserve">+toString(): String
 +equals(): boolean
 +adjacent(): boolean
-+distanceSquared(): int</y:MethodLabel>
++distanceSquared(): int
++hashCode(): int</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -150,7 +151,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="404.17221405286" width="245.63975611834312" x="124.69199337981935" y="-209.5055473861932"/>
+          <y:Geometry height="427.71570193918325" width="245.63975611834312" x="124.69199337981935" y="-233.04903527251645"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="78.37548828125" x="83.63213391854656" xml:space="preserve" y="3.0">WorldModel<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -159,7 +160,8 @@
 -numCols: int
 -background: Background[][]
 -occupancy: Entity[][]
--entities: Set&lt;Entity&gt;</y:AttributeLabel>
+-entities: Set&lt;Entity&gt;
+-ORE_REACH: int  &lt;&lt;static&gt;&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+getNumRows(): int
 +getNumCols(): int
 +getEntities(): Set&lt;Entity&gt;
@@ -294,7 +296,6 @@
 +ORE_ACTION_PERIOD: int                      &lt;&lt;static&gt;&gt;
 +SMITH_KEY: String                           &lt;&lt;static&gt;&gt;
 +SMITH_NUM_PROPERTIES: int                   &lt;&lt;static&gt;&gt;
-+ORE_REACH: int                              &lt;&lt;static&gt;&gt;
 +QUAKE_ID: String                            &lt;&lt;static&gt;&gt;
 +QUAKE_ACTION_PERIOD: int                    &lt;&lt;static&gt;&gt;
 +QUAKE_ANIMATION_PERIOD: int                 &lt;&lt;static&gt;&gt;
