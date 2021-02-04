@@ -80,16 +80,6 @@ public final class Entity
         this.imageIndex = (this.imageIndex + 1) % this.images.size();
     }
 
-    public Action createAnimationAction(int repeatCount) { //talk about creates
-        return new Action(ActionKind.ANIMATION, this, null, null,
-                repeatCount);
-    }
-
-    public Action createActivityAction(WorldModel world, ImageStore imageStore)
-    {
-        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
-    }
-
     public void executeMinerFullActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -105,7 +95,7 @@ public final class Entity
         }
         else {
             scheduler.scheduleEvent(this,
-                    this.createActivityAction(world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     this.actionPeriod);
         }
     }
@@ -124,7 +114,7 @@ public final class Entity
                 || !this.transformNotFull(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent(this,
-                    this.createActivityAction(world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     this.actionPeriod);
         }
     }
@@ -139,7 +129,7 @@ public final class Entity
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Functions.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
+        Entity blob = Factory.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / BLOB_PERIOD_SCALE,
                 BLOB_ANIMATION_MIN + rand.nextInt(
                         BLOB_ANIMATION_MAX
@@ -163,7 +153,7 @@ public final class Entity
             Point tgtPos = blobTarget.get().position;
 
             if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
-                Entity quake = Functions.createQuake(tgtPos,
+                Entity quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
@@ -173,7 +163,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 nextPeriod);
     }
 
@@ -194,7 +184,7 @@ public final class Entity
         Optional<Point> openPt = world.findOpenAround(position);
 
         if (openPt.isPresent()) {
-            Entity ore = Functions.createOre(ORE_ID_PREFIX + this.id, openPt.get(),
+            Entity ore = Factory.createOre(ORE_ID_PREFIX + this.id, openPt.get(),
                     ORE_CORRUPT_MIN + rand.nextInt(
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
@@ -203,7 +193,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                this.createActivityAction(world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 this.actionPeriod);
     }
 
@@ -215,49 +205,49 @@ public final class Entity
         switch (this.kind) {
             case MINER_FULL:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this,0),
                         animationPeriod);
                 break;
 
             case MINER_NOT_FULL:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this,0),
                         animationPeriod);
                 break;
 
             case ORE:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
             case ORE_BLOB:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        this.createAnimationAction(0),
+                        Factory.createAnimationAction(this,0),
                         animationPeriod);
                 break;
 
             case QUAKE:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
-                scheduler.scheduleEvent(this, this.createAnimationAction(
+                scheduler.scheduleEvent(this, Factory.createAnimationAction(this,
                         QUAKE_ANIMATION_REPEAT_COUNT),
                         animationPeriod);
                 break;
 
             case VEIN:
                 scheduler.scheduleEvent(this,
-                        this.createActivityAction(world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
@@ -271,7 +261,7 @@ public final class Entity
             ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity miner = Functions.createMinerFull(this.id, this.resourceLimit,
+            Entity miner = Factory.createMinerFull(this.id, this.resourceLimit,
                     this.position, this.actionPeriod,
                     this.animationPeriod,
                     this.images);
@@ -293,7 +283,7 @@ public final class Entity
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = Functions.createMinerNotFull(this.id, this.resourceLimit,
+        Entity miner = Factory.createMinerNotFull(this.id, this.resourceLimit,
                 this.position, this.actionPeriod,
                 this.animationPeriod,
                 this.images);
