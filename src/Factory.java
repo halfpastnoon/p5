@@ -66,7 +66,7 @@ public class Factory {
         return new Vein(actionPeriod, id, position, images);
     }
 
-    public static Action createAnimationAction(Entity entity, int repeatCount) { //gotta move these damnit
+    public static Action createAnimationAction(Entity entity, int repeatCount) {
         return new Animation(entity, null, null,
                 repeatCount);
     }

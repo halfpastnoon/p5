@@ -24,7 +24,7 @@ public class Animation implements Action{
                     Factory.createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,
                                     0)),
-                    this.entity.getAnimationPeriod());
+                    ((Animatable)this.entity).getAnimationPeriod());
         }
     }
 

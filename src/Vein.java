@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class Vein implements Entity{
+public class Vein implements Entity, Executable{
     private static final String ORE_ID_PREFIX = "ore -- ";
     private static final int ORE_CORRUPT_MIN = 20000;
     private static final int ORE_CORRUPT_MAX = 30000;
@@ -32,10 +32,6 @@ public class Vein implements Entity{
         this.position = p;
     }
 
-    public int getAnimationPeriod(){
-        return 0;
-    }
-
     public void nextImage() {
         this.imageIndex = (this.imageIndex + 1) % this.images.size();
     }
@@ -57,7 +53,7 @@ public class Vein implements Entity{
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                     imageStore.getImageList(Functions.ORE_KEY));
             world.addEntity(ore);
-            ore.scheduleActions(scheduler, world, imageStore);
+            ((Executable)ore).scheduleActions(scheduler, world, imageStore);
         }
 
         scheduler.scheduleEvent(this,

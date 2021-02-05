@@ -28,19 +28,8 @@ public class Obstacle implements Entity {
         this.position = p;
     }
 
-    public int getAnimationPeriod(){
-        return 0;
-    }
-
     public PImage getCurrentImage(){
         return images.get(imageIndex);
     }
 
-    public void executeActivity(WorldModel world,
-                                ImageStore imageStore,
-                                EventScheduler scheduler){}
-
-    public void scheduleActions(EventScheduler scheduler,
-                                WorldModel world,
-                                ImageStore imageStore){}
 }

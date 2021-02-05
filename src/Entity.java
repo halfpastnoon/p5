@@ -13,19 +13,8 @@ public interface Entity
     public void setPosition(Point p);
 
 
-    public int getAnimationPeriod();
-
     public void nextImage();
 
-    public void executeActivity(WorldModel world,
-                                ImageStore imageStore,
-                                EventScheduler scheduler);
-
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore);
 
 
     public PImage getCurrentImage();

@@ -17,8 +17,9 @@ public class Activity implements Action {
     }
 
 
-    public void executeAction(EventScheduler scheduler)
-    {
-        this.entity.executeActivity(this.world, this.imageStore, scheduler);
+    public void executeAction(EventScheduler scheduler) {
+        if (entity instanceof Executable) {
+            ((Executable) this.entity).executeActivity(this.world, this.imageStore, scheduler);
+        }
     }
 }

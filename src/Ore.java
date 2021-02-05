@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Random;
 
-public class Ore implements Entity{
+public class Ore implements Entity, Executable{
 
     private String id;
     private Point position;
@@ -42,10 +42,6 @@ public class Ore implements Entity{
         return images.get(imageIndex);
     }
 
-    public int getAnimationPeriod(){
-        return 0;
-    }
-
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -64,7 +60,7 @@ public class Ore implements Entity{
                 imageStore.getImageList(BLOB_KEY));
 
         world.addEntity(blob);
-        blob.scheduleActions(scheduler, world, imageStore);
+        ((Executable)blob).scheduleActions(scheduler, world, imageStore);
     }
 
     public void scheduleActions(EventScheduler scheduler,

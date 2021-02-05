@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class OreBlob implements Entity{
+public class OreBlob implements Entity, Executable, Animatable{
 
     private static final String QUAKE_KEY = "quake";
 
@@ -61,7 +61,7 @@ public class OreBlob implements Entity{
 
                 world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
-                quake.scheduleActions(scheduler, world, imageStore);
+                ((Executable)quake).scheduleActions(scheduler, world, imageStore);
             }
         }
 
