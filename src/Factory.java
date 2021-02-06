@@ -3,6 +3,10 @@ import processing.core.PImage;
 import java.util.List;
 
 public class Factory {
+    private static final String QUAKE_ID = "quake";
+    private static final int QUAKE_ACTION_PERIOD = 1100;
+    private static final int QUAKE_ANIMATION_PERIOD = 100;
+
 
     public static Entity createBlacksmith(
             String id, Point position, List<PImage> images)
@@ -57,7 +61,7 @@ public class Factory {
     public static Entity createQuake(
             Point position, List<PImage> images)
     {
-        return new Quake(Functions.QUAKE_ACTION_PERIOD, Functions.QUAKE_ANIMATION_PERIOD, images, position, Functions.QUAKE_ID);
+        return new Quake(QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD, images, position, QUAKE_ID);
     }
 
     public static Entity createVein(

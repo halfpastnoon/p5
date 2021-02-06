@@ -1,66 +1,61 @@
+import processing.core.PApplet;
+import processing.core.PImage;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import processing.core.PImage;
-import processing.core.PApplet;
+public class Parse {
 
-public final class Functions {
-
-    public static final String QUAKE_ID = "quake";
-    public static final int QUAKE_ACTION_PERIOD = 1100;
-    public static final int QUAKE_ANIMATION_PERIOD = 100;
-
-
-    public static final int COLOR_MASK = 0xffffff;
-    public static final int KEYED_IMAGE_MIN = 5;
+    private static final int COLOR_MASK = 0xffffff;
+    private static final int KEYED_IMAGE_MIN = 5;
     private static final int KEYED_RED_IDX = 2;
     private static final int KEYED_GREEN_IDX = 3;
     private static final int KEYED_BLUE_IDX = 4;
 
-    public static final int PROPERTY_KEY = 0;
+    private static final int PROPERTY_KEY = 0;
 
-    public static final String BGND_KEY = "background";
-    public static final int BGND_NUM_PROPERTIES = 4;
-    public static final int BGND_ID = 1;
-    public static final int BGND_COL = 2;
-    public static final int BGND_ROW = 3;
+    private static final String BGND_KEY = "background";
+    private static final int BGND_NUM_PROPERTIES = 4;
+    private static final int BGND_ID = 1;
+    private static final int BGND_COL = 2;
+    private static final int BGND_ROW = 3;
 
-    public static final String MINER_KEY = "miner";
-    public static final int MINER_NUM_PROPERTIES = 7;
-    public static final int MINER_ID = 1;
-    public static final int MINER_COL = 2;
-    public static final int MINER_ROW = 3;
-    public static final int MINER_LIMIT = 4;
-    public static final int MINER_ACTION_PERIOD = 5;
-    public static final int MINER_ANIMATION_PERIOD = 6;
+    private static final String MINER_KEY = "miner";
+    private static final int MINER_NUM_PROPERTIES = 7;
+    private static final int MINER_ID = 1;
+    private static final int MINER_COL = 2;
+    private static final int MINER_ROW = 3;
+    private static final int MINER_LIMIT = 4;
+    private static final int MINER_ACTION_PERIOD = 5;
+    private static final int MINER_ANIMATION_PERIOD = 6;
 
-    public static final String OBSTACLE_KEY = "obstacle";
-    public static final int OBSTACLE_NUM_PROPERTIES = 4;
-    public static final int OBSTACLE_ID = 1;
-    public static final int OBSTACLE_COL = 2;
-    public static final int OBSTACLE_ROW = 3;
+    private static final String OBSTACLE_KEY = "obstacle";
+    private static final int OBSTACLE_NUM_PROPERTIES = 4;
+    private static final int OBSTACLE_ID = 1;
+    private static final int OBSTACLE_COL = 2;
+    private static final int OBSTACLE_ROW = 3;
 
     public static final String ORE_KEY = "ore";
-    public static final int ORE_NUM_PROPERTIES = 5;
-    public static final int ORE_ID = 1;
-    public static final int ORE_COL = 2;
-    public static final int ORE_ROW = 3;
-    public static final int ORE_ACTION_PERIOD = 4;
+    private static final int ORE_NUM_PROPERTIES = 5;
+    private static final int ORE_ID = 1;
+    private static final int ORE_COL = 2;
+    private static final int ORE_ROW = 3;
+    private static final int ORE_ACTION_PERIOD = 4;
 
-    public static final String SMITH_KEY = "blacksmith";
-    public static final int SMITH_NUM_PROPERTIES = 4;
-    public static final int SMITH_ID = 1;
-    public static final int SMITH_COL = 2;
-    public static final int SMITH_ROW = 3;
+    private static final String SMITH_KEY = "blacksmith";
+    private static final int SMITH_NUM_PROPERTIES = 4;
+    private static final int SMITH_ID = 1;
+    private static final int SMITH_COL = 2;
+    private static final int SMITH_ROW = 3;
 
-    public static final String VEIN_KEY = "vein";
-    public static final int VEIN_NUM_PROPERTIES = 5;
-    public static final int VEIN_ID = 1;
-    public static final int VEIN_COL = 2;
-    public static final int VEIN_ROW = 3;
-    public static final int VEIN_ACTION_PERIOD = 4;
+    private static final String VEIN_KEY = "vein";
+    private static final int VEIN_NUM_PROPERTIES = 5;
+    private static final int VEIN_ID = 1;
+    private static final int VEIN_COL = 2;
+    private static final int VEIN_ROW = 3;
+    private static final int VEIN_ACTION_PERIOD = 4;
 
 
     public static void processImageLine(
@@ -83,7 +78,7 @@ public final class Functions {
         }
     }
 
-    public static List<PImage> getImages(
+    private static List<PImage> getImages(
             Map<String, List<PImage>> images, String key) {
         List<PImage> imgs = images.get(key);
         if (imgs == null) {
@@ -97,7 +92,7 @@ public final class Functions {
       Called with color for which alpha should be set and alpha value.
       setAlpha(img, color(255, 255, 255), 0));
     */
-    public static void setAlpha(PImage img, int maskColor, int alpha) {
+    private static void setAlpha(PImage img, int maskColor, int alpha) {
         int alphaValue = alpha << 24;
         int nonAlpha = maskColor & COLOR_MASK;
         img.format = PApplet.ARGB;
@@ -131,7 +126,7 @@ public final class Functions {
         }
     }
 
-    public static boolean processLine(
+    private static boolean processLine(
             String line, WorldModel world, ImageStore imageStore) {
         String[] properties = line.split("\\s");
         if (properties.length > 0) {
@@ -154,7 +149,7 @@ public final class Functions {
         return false;
     }
 
-    public static boolean parseBackground(
+    private static boolean parseBackground(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == BGND_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
@@ -167,7 +162,7 @@ public final class Functions {
         return properties.length == BGND_NUM_PROPERTIES;
     }
 
-    public static boolean parseMiner(
+    private static boolean parseMiner(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == MINER_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
@@ -186,7 +181,7 @@ public final class Functions {
         return properties.length == MINER_NUM_PROPERTIES;
     }
 
-    public static boolean parseObstacle(
+    private static boolean parseObstacle(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
@@ -200,7 +195,7 @@ public final class Functions {
         return properties.length == OBSTACLE_NUM_PROPERTIES;
     }
 
-    public static boolean parseOre(
+    private static boolean parseOre(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == ORE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[ORE_COL]),
@@ -214,7 +209,7 @@ public final class Functions {
         return properties.length == ORE_NUM_PROPERTIES;
     }
 
-    public static boolean parseSmith(
+    private static boolean parseSmith(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == SMITH_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[SMITH_COL]),
@@ -228,7 +223,7 @@ public final class Functions {
         return properties.length == SMITH_NUM_PROPERTIES;
     }
 
-    public static boolean parseVein(
+    private static boolean parseVein(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == VEIN_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[VEIN_COL]),
@@ -243,4 +238,3 @@ public final class Functions {
         return properties.length == VEIN_NUM_PROPERTIES;
     }
 }
-
