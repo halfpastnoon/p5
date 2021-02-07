@@ -15,7 +15,7 @@ public class Factory {
         return new Blacksmith(position, images, id);
     }
 
-    public static Entity createMinerFull(
+    public static Executable createMinerFull(
             String id,
             int resourceLimit,
             Point position,
@@ -26,7 +26,7 @@ public class Factory {
         return new MinerFull(id, position, images, resourceLimit, actionPeriod, animationPeriod);
     }
 
-    public static Entity createMinerNotFull(
+    public static Executable createMinerNotFull(
             String id,
             int resourceLimit,
             Point position,
@@ -43,13 +43,13 @@ public class Factory {
         return new Obstacle(position, images, id);
     }
 
-    public static Entity createOre(
+    public static Executable createOre(
             String id, Point position, int actionPeriod, List<PImage> images)
     {
         return new Ore(id, position, actionPeriod, images);
     }
 
-    public static Entity createOreBlob(
+    public static Executable createOreBlob(
             String id,
             Point position,
             int actionPeriod,
@@ -59,7 +59,7 @@ public class Factory {
         return new OreBlob(position, actionPeriod, animationPeriod, images, id);
     }
 
-    public static Entity createQuake(
+    public static Executable createQuake(
             Point position, List<PImage> images)
     {
         return new Quake(QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD, images, position, QUAKE_ID);
@@ -71,7 +71,7 @@ public class Factory {
         return new Vein(actionPeriod, id, position, images);
     }
 
-    public static Action createAnimationAction(Entity entity, int repeatCount) {
+    public static Action createAnimationAction(Animatable entity, int repeatCount) {
         return new Animation(entity, repeatCount);
     }
 

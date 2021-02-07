@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerNotFull implements Entity, Executable, Animatable{
+public class MinerNotFull implements Animatable{
     private String id;
     private Point position;
     private List<PImage> images;
@@ -69,7 +69,7 @@ public class MinerNotFull implements Entity, Executable, Animatable{
             ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity miner = Factory.createMinerFull(this.id, this.resourceLimit,
+            Executable miner = Factory.createMinerFull(this.id, this.resourceLimit,
                     this.position, this.actionPeriod,
                     this.animationPeriod,
                     this.images);
@@ -78,7 +78,7 @@ public class MinerNotFull implements Entity, Executable, Animatable{
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(miner);
-            ((Executable)miner).scheduleActions(scheduler, world, imageStore);
+            miner.scheduleActions(scheduler, world, imageStore);
 
             return true;
         }

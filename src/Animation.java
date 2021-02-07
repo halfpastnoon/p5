@@ -1,9 +1,9 @@
 public class Animation implements Action{
-    private Entity entity;
+    private Animatable entity;
     private int repeatCount;
 
     public Animation(
-            Entity entity,
+            Animatable entity,
             int repeatCount)
     {
         this.entity = entity;
@@ -18,7 +18,7 @@ public class Animation implements Action{
                     Factory.createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,
                                     0)),
-                    ((Animatable)this.entity).getAnimationPeriod()); //decided casting here made more sense, other entity functions are used
+                    this.entity.getAnimationPeriod());
         }
     }
 

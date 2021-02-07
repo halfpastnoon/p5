@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Random;
 
-public class Ore implements Entity, Executable{
+public class Ore implements Executable{
 
     private String id;
     private Point position;
@@ -52,7 +52,7 @@ public class Ore implements Entity, Executable{
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Factory.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
+        Executable blob = Factory.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / BLOB_PERIOD_SCALE,
                 BLOB_ANIMATION_MIN + rand.nextInt(
                         BLOB_ANIMATION_MAX
@@ -60,7 +60,7 @@ public class Ore implements Entity, Executable{
                 imageStore.getImageList(BLOB_KEY));
 
         world.addEntity(blob);
-        ((Executable)blob).scheduleActions(scheduler, world, imageStore);
+        blob.scheduleActions(scheduler, world, imageStore);
     }
 
     public void scheduleActions(EventScheduler scheduler,

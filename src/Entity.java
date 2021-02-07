@@ -7,20 +7,17 @@ import processing.core.PImage;
 public interface Entity
 {
 
+    Point getPosition();
 
-    public Point getPosition();
-
-    public void setPosition(Point p);
-
-
-    public void nextImage();
+    void setPosition(Point p);
 
 
+    void nextImage();
 
-    public PImage getCurrentImage();
+    
+    PImage getCurrentImage();
 
-    public static Optional<Entity> nearestEntity( //accesses private data so it goes in here but not instance data so we keep em static
-            List<Entity> entities, Point pos)
+    static Optional<Entity> nearestEntity(List<Entity> entities, Point pos) //accesses private data so it goes in here but not instance data so we keep em static
     {
         if (entities.isEmpty()) {
             return Optional.empty();

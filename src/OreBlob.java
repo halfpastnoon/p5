@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class OreBlob implements Entity, Executable, Animatable{
+public class OreBlob implements Animatable{
 
     private static final String QUAKE_KEY = "quake";
 
@@ -56,12 +56,12 @@ public class OreBlob implements Entity, Executable, Animatable{
             Point tgtPos = blobTarget.get().getPosition();
 
             if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
-                Entity quake = Factory.createQuake(tgtPos,
+                Executable quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
-                ((Executable)quake).scheduleActions(scheduler, world, imageStore);
+                quake.scheduleActions(scheduler, world, imageStore);
             }
         }
 

@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Quake implements Entity, Executable, Animatable{
+public class Quake implements Animatable{
 
     private int actionPeriod;
     private int animationPeriod;
