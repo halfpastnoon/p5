@@ -9,7 +9,7 @@ public class Quake implements Entity, Executable, Animatable{
     private List<PImage> images;
     private int imageIndex;
     private Point position;
-    private String id;
+    private String id; //this was left because it could be useful later although its not being used now
 
     private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 

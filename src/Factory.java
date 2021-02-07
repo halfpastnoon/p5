@@ -6,6 +6,7 @@ public class Factory {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
+    private static final String DEFAULT_IMAGE_NAME = "background_default";
 
 
     public static Entity createBlacksmith(
@@ -71,13 +72,28 @@ public class Factory {
     }
 
     public static Action createAnimationAction(Entity entity, int repeatCount) {
-        return new Animation(entity, null, null,
-                repeatCount);
+        return new Animation(entity, repeatCount);
     }
 
-    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore)
+    public static Action createActivityAction(Executable entity, WorldModel world, ImageStore imageStore)
     {
-        return new Activity(entity, world, imageStore, 0);
+        return new Activity(entity, world, imageStore);
+    }
+
+    public static Background createDefaultBackground(ImageStore imageStore) {
+        return new Background(DEFAULT_IMAGE_NAME,
+                imageStore.getImageList(
+                        DEFAULT_IMAGE_NAME));
+    }
+
+    public static PImage createImageColored(int width, int height, int color) {
+        PImage img = new PImage(width, height, PImage.RGB);
+        img.loadPixels();
+        for (int i = 0; i < img.pixels.length; i++) {
+            img.pixels[i] = color;
+        }
+        img.updatePixels();
+        return img;
     }
 }
 

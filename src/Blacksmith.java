@@ -7,7 +7,7 @@ public class Blacksmith implements Entity{
     private Point position;
     private List<PImage> images;
     private int imageIndex;
-    private String id;
+    private String id; //this was left because it could be useful later although its not being used now
 
     public Blacksmith(Point position, List<PImage> images, String id) {
         this.position = position;

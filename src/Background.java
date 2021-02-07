@@ -14,7 +14,7 @@ public final class Background
     }
 
     public PImage getCurrentImage(){
-        return images.get(imageIndex);
+        return images.get(0);
     }
 
 

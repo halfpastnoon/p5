@@ -12,7 +12,7 @@ public class OreBlob implements Entity, Executable, Animatable{
     private int animationPeriod;
     private List<PImage> images;
     private int imageIndex;
-    private String id;
+    private String id; //this was left because it could be useful later although its not being used now
 
     public OreBlob(Point position, int actionPeriod, int animationPeriod, List<PImage> images, String id) {
         this.position = position;
