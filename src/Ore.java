@@ -3,13 +3,13 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Random;
 
-public class Ore implements Executable{
+public class Ore extends Executable{
 
-    private String id;
-    private Point position;
-    private int actionPeriod;
-    private List<PImage> images;
-    private int imageIndex;
+//    private String id;
+//    private Point position;
+//    private int actionPeriod;
+//    private List<PImage> images;
+//    private int imageIndex;
 
     private static final String BLOB_KEY = "blob";
     private static final String BLOB_ID_SUFFIX = " -- blob";
@@ -19,11 +19,7 @@ public class Ore implements Executable{
     private static final Random rand = new Random();
 
     public Ore(String id, Point position, int actionPeriod, List<PImage> images){
-        this.id = id;
-        this.position = position;
-        this.actionPeriod = actionPeriod;
-        this.images = images;
-        this.imageIndex = 0;
+        super(position, images, 0, id, actionPeriod);
     }
 
     public Point getPosition() {

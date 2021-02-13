@@ -4,24 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class Vein implements Executable{
+public class Vein extends Executable{
     private static final String ORE_ID_PREFIX = "ore -- ";
     private static final int ORE_CORRUPT_MIN = 20000;
     private static final int ORE_CORRUPT_MAX = 30000;
     private static final Random rand = new Random();
 
-    private int actionPeriod;
-    private String id;
-    private Point position;
-    private List<PImage> images;
-    private int imageIndex;
+//    private int actionPeriod;
+//    private String id;
+//    private Point position;
+//    private List<PImage> images;
+//    private int imageIndex;
 
     public Vein(int actionPeriod, String id, Point position, List<PImage> images){
-        this.actionPeriod = actionPeriod;
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
+        super(position, images, 0, id, actionPeriod);
     }
 
     public Point getPosition() {

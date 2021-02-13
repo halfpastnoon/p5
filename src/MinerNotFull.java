@@ -3,25 +3,20 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerNotFull implements Animatable{
-    private String id;
-    private Point position;
-    private List<PImage> images;
+public class MinerNotFull extends Animatable{
+//    private String id;
+//    private Point position;
+//    private List<PImage> images;
     private int resourceLimit;
     private int resourceCount;
-    private int actionPeriod;
-    private int animationPeriod;
-    private int imageIndex;
+//    private int actionPeriod;
+//    private int animationPeriod;
+//    private int imageIndex;
 
     public MinerNotFull(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod) {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.resourceLimit = resourceLimit;
+        super(position, images, 0, id, actionPeriod, animationPeriod);
         this.resourceCount = resourceCount;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.imageIndex = 0;
+        this.resourceLimit = resourceLimit;
     }
 
     public Point getPosition() {

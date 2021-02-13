@@ -3,24 +3,19 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class OreBlob implements Animatable{
+public class OreBlob extends Animatable{
 
     private static final String QUAKE_KEY = "quake";
 
-    private Point position;
-    private int actionPeriod;
-    private int animationPeriod;
-    private List<PImage> images;
-    private int imageIndex;
-    private String id; //this was left because it could be useful later although its not being used now
+//    private Point position;
+//    private int actionPeriod;
+//    private int animationPeriod;
+//    private List<PImage> images;
+//    private int imageIndex;
+//    private String id; //this was left because it could be useful later although its not being used now
 
     public OreBlob(Point position, int actionPeriod, int animationPeriod, List<PImage> images, String id) {
-        this.position = position;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.images = images;
-        this.imageIndex = 0;
-        this.id = id;
+        super(position, images, 0, id, actionPeriod, animationPeriod);
     }
 
     public Point getPosition() {

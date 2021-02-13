@@ -2,24 +2,19 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Quake implements Animatable{
+public class Quake extends Animatable{
 
-    private int actionPeriod;
-    private int animationPeriod;
-    private List<PImage> images;
-    private int imageIndex;
-    private Point position;
-    private String id; //this was left because it could be useful later although its not being used now
+//    private int actionPeriod;
+//    private int animationPeriod;
+//    private List<PImage> images;
+//    private int imageIndex;
+//    private Point position;
+//    private String id; //this was left because it could be useful later although its not being used now
 
     private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
     public Quake(int actionPeriod, int animationPeriod, List<PImage> images, Point position, String id) {
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.images = images;
-        this.imageIndex = 0;
-        this.position = position;
-        this.id = id;
+        super(position, images, 0, id, actionPeriod, animationPeriod);
     }
 
     public int getAnimationPeriod() {
