@@ -3,39 +3,13 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerFull extends Animatable{
-
-//    private String id;
-//    private Point position;
-//    private List<PImage> images;
+public class MinerFull extends Animatable
+{
     private int resourceLimit;
-//    private int actionPeriod;
-//    private int animationPeriod;
-//    private int imageIndex;
 
     public MinerFull(String id, Point position, List<PImage> images, int resourceLimit, int actionPeriod, int animationPeriod) {
         super(position, images, 0, id, actionPeriod, animationPeriod);
         this.resourceLimit = resourceLimit;
-    }
-
-    public Point getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Point p){
-        this.position = p;
-    }
-
-    public int getAnimationPeriod() {
-        return animationPeriod;
-    }
-
-    public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public PImage getCurrentImage(){
-        return images.get(imageIndex);
     }
 
     public void executeActivity(
@@ -63,7 +37,7 @@ public class MinerFull extends Animatable{
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Executable miner = Factory.createMinerNotFull(this.id, this.resourceLimit,
+        Animatable miner = Factory.createMinerNotFull(this.id, this.resourceLimit,
                 this.position, this.actionPeriod,
                 this.animationPeriod,
                 this.images);
@@ -72,7 +46,7 @@ public class MinerFull extends Animatable{
         scheduler.unscheduleAllEvents(this);
 
         world.addEntity(miner);
-        miner.scheduleActions(scheduler, world, imageStore);
+        miner.scheduleActions(scheduler, world, imageStore, 0);
     }
 
     private boolean moveToFull(
@@ -113,16 +87,5 @@ public class MinerFull extends Animatable{
         }
 
         return newPos;
-    }
-
-    public void scheduleActions(EventScheduler scheduler,
-                                WorldModel world,
-                                ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
-        scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this,0),
-                animationPeriod);
     }
 }

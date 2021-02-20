@@ -13,7 +13,7 @@ public final class EventScheduler
     }
 
     public void scheduleEvent(
-            Entity entity,
+            Executable entity,
             Action action,
             long afterPeriod)
     {

@@ -7,35 +7,8 @@ public class OreBlob extends Animatable{
 
     private static final String QUAKE_KEY = "quake";
 
-//    private Point position;
-//    private int actionPeriod;
-//    private int animationPeriod;
-//    private List<PImage> images;
-//    private int imageIndex;
-//    private String id; //this was left because it could be useful later although its not being used now
-
     public OreBlob(Point position, int actionPeriod, int animationPeriod, List<PImage> images, String id) {
         super(position, images, 0, id, actionPeriod, animationPeriod);
-    }
-
-    public Point getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Point p){
-        this.position = p;
-    }
-
-    public int getAnimationPeriod() {
-        return animationPeriod;
-    }
-
-    public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public PImage getCurrentImage(){
-        return images.get(imageIndex);
     }
 
     public void executeActivity(
@@ -51,12 +24,12 @@ public class OreBlob extends Animatable{
             Point tgtPos = blobTarget.get().getPosition();
 
             if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
-                Executable quake = Factory.createQuake(tgtPos,
+                Animatable quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
                 nextPeriod += this.actionPeriod;
-                quake.scheduleActions(scheduler, world, imageStore);
+                quake.scheduleActions(scheduler, world, imageStore, Quake.QUAKE_ANIMATION_REPEAT_COUNT);
             }
         }
 
@@ -112,16 +85,5 @@ public class OreBlob extends Animatable{
         }
 
         return newPos;
-    }
-
-    public void scheduleActions(EventScheduler scheduler,
-                                WorldModel world,
-                                ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
-        scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this,0),
-                animationPeriod);
     }
 }

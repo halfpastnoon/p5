@@ -10,30 +10,8 @@ public class Vein extends Executable{
     private static final int ORE_CORRUPT_MAX = 30000;
     private static final Random rand = new Random();
 
-//    private int actionPeriod;
-//    private String id;
-//    private Point position;
-//    private List<PImage> images;
-//    private int imageIndex;
-
     public Vein(int actionPeriod, String id, Point position, List<PImage> images){
-        super(position, images, 0, id, actionPeriod);
-    }
-
-    public Point getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Point p){
-        this.position = p;
-    }
-
-    public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public PImage getCurrentImage(){
-        return images.get(imageIndex);
+        super(position, images, id, actionPeriod);
     }
 
     public void executeActivity(
@@ -57,12 +35,5 @@ public class Vein extends Executable{
                 this.actionPeriod);
     }
 
-    public void scheduleActions(EventScheduler scheduler,
-                                WorldModel world,
-                                ImageStore imageStore){
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
-    }
 
 }

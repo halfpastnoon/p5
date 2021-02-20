@@ -8,20 +8,25 @@ public abstract class Entity
 {
     protected Point position;
     protected List<PImage> images;
-    protected int imageIndex;
     protected String id;
 
-    public Entity(Point position, List<PImage> images, int imageIndex, String id) {
+    public Entity(Point position, List<PImage> images, String id) {
         this.position = position;
         this.images = images;
-        this.imageIndex = imageIndex;
         this.id = id;
     }
 
-    abstract Point getPosition();
-    abstract void setPosition(Point p);
-    abstract void nextImage();
-    abstract PImage getCurrentImage();
+    public Point getPosition() {
+        return this.position;
+    }
+
+    public PImage getCurrentImage(){
+        return images.get(0);
+    } //sorry about the magic number
+
+    public void setPosition(Point p){
+        this.position = p;
+    }
 
     static Optional<Entity> nearestEntity(List<Entity> entities, Point pos) //accesses private data so it goes in here but not instance data so we keep em static
     {
