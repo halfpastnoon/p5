@@ -21,12 +21,12 @@ public class Ore extends Executable{
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Point pos = this.position;
+        Point pos = this.getPosition();
 
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Animatable blob = Factory.createOreBlob(this.id + BLOB_ID_SUFFIX, pos,
+        Animatable blob = Factory.createOreBlob(this.getId() + BLOB_ID_SUFFIX, pos,
                 this.actionPeriod / BLOB_PERIOD_SCALE,
                 BLOB_ANIMATION_MIN + rand.nextInt(
                         BLOB_ANIMATION_MAX

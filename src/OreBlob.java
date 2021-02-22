@@ -17,7 +17,7 @@ public class OreBlob extends Animatable{
             EventScheduler scheduler)
     {
         Optional<Entity> blobTarget =
-                world.findNearest(this.position, Vein.class);
+                world.findNearest(this.getPosition(), Vein.class);
         long nextPeriod = this.actionPeriod;
 
         if (blobTarget.isPresent()) {
@@ -43,7 +43,7 @@ public class OreBlob extends Animatable{
             Entity target,
             EventScheduler scheduler)
     {
-        if (position.adjacent(target.getPosition())) {
+        if (getPosition().adjacent(target.getPosition())) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
@@ -51,7 +51,7 @@ public class OreBlob extends Animatable{
         else {
             Point nextPos = this.nextPositionOreBlob(world, target.getPosition());
 
-            if (!this.position.equals(nextPos)) {
+            if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
@@ -65,22 +65,22 @@ public class OreBlob extends Animatable{
 
     private Point nextPositionOreBlob(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.position.x);
-        Point newPos = new Point(this.position.x + horiz, this.position.y);
+        int horiz = Integer.signum(destPos.x - this.getPosition().x);
+        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
         if (horiz == 0 || (occupant.isPresent() && !(occupant.get().getClass()
                 == Ore.class)))
         {
-            int vert = Integer.signum(destPos.y - this.position.y);
-            newPos = new Point(this.position.x, this.position.y + vert);
+            int vert = Integer.signum(destPos.y - this.getPosition().y);
+            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
             occupant = world.getOccupant(newPos);
 
             if (vert == 0 || (occupant.isPresent() && !(occupant.get().getClass()
                     == Ore.class)))
             {
-                newPos = this.position;
+                newPos = this.getPosition();
             }
         }
 

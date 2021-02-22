@@ -19,10 +19,10 @@ public class Vein extends Executable{
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Optional<Point> openPt = world.findOpenAround(position);
+        Optional<Point> openPt = world.findOpenAround(getPosition());
 
         if (openPt.isPresent()) {
-            Executable ore = Factory.createOre(ORE_ID_PREFIX + this.id, openPt.get(),
+            Executable ore = Factory.createOre(ORE_ID_PREFIX + this.getId(), openPt.get(),
                     ORE_CORRUPT_MIN + rand.nextInt(
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                     imageStore.getImageList(Parse.ORE_KEY));

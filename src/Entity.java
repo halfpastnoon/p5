@@ -6,15 +6,18 @@ import processing.core.PImage;
 
 public abstract class Entity
 {
-    protected Point position;
-    protected List<PImage> images;
-    protected String id;
+    private Point position;
+    private List<PImage> images;
+    private String id;
 
     public Entity(Point position, List<PImage> images, String id) {
         this.position = position;
         this.images = images;
         this.id = id;
     }
+    protected List<PImage> getImages(){ return this.images;}
+
+    protected String getId(){return this.id;}
 
     public Point getPosition() {
         return this.position;

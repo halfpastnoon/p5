@@ -3,8 +3,8 @@ import processing.core.PImage;
 import java.util.List;
 
 public abstract class Animatable extends Executable {
-    protected int animationPeriod;
-    protected int imageIndex;
+    private int animationPeriod;
+    private int imageIndex;
 
     public Animatable(Point position, List<PImage> images, int imageIndex, String id, int actionPeriod, int animationPeriod) {
         super(position, images, id, actionPeriod);
@@ -17,11 +17,11 @@ public abstract class Animatable extends Executable {
     }
 
     public void nextImage() {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
+        this.imageIndex = (this.imageIndex + 1) % this.getImages().size();
     }
 
     public PImage getCurrentImage(){
-        return images.get(imageIndex);
+        return getImages().get(imageIndex);
     }
 
     public void scheduleActions(EventScheduler scheduler, //changed method signature so this could be brought up in hierarchy, see scheduleActions() in VirtualWorld
