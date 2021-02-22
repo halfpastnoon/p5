@@ -30,7 +30,7 @@ public abstract class Animatable extends Executable {
                                 int repeatCount) {
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
+                this.getActionPeriod());
         scheduler.scheduleEvent(this,
                 Factory.createAnimationAction(this, repeatCount),
                 animationPeriod);

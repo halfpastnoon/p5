@@ -4,12 +4,14 @@ import java.util.List;
 
 public abstract class Executable extends Entity
 {
-    protected int actionPeriod;
+    private int actionPeriod;
 
     public Executable(Point position, List<PImage> images, String id, int actionPeriod){
         super(position, images, id);
         this.actionPeriod = actionPeriod;
     }
+
+    protected int getActionPeriod() {return this.actionPeriod;}
 
 
     abstract void executeActivity(WorldModel world,

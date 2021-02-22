@@ -18,7 +18,7 @@ public class OreBlob extends Animatable{
     {
         Optional<Entity> blobTarget =
                 world.findNearest(this.getPosition(), Vein.class);
-        long nextPeriod = this.actionPeriod;
+        long nextPeriod = this.getActionPeriod();
 
         if (blobTarget.isPresent()) {
             Point tgtPos = blobTarget.get().getPosition();
@@ -28,8 +28,8 @@ public class OreBlob extends Animatable{
                         imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
-                nextPeriod += this.actionPeriod;
-                quake.scheduleActions(scheduler, world, imageStore, Quake.QUAKE_ANIMATION_REPEAT_COUNT);
+                nextPeriod += this.getActionPeriod();
+                quake.scheduleActions(scheduler, world, imageStore, VirtualWorld.QUAKE_ANIMATION_REPEAT_COUNT);
             }
         }
 

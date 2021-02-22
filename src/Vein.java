@@ -32,7 +32,7 @@ public class Vein extends Executable{
 
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
+                this.getActionPeriod());
     }
 
 

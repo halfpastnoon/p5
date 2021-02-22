@@ -19,14 +19,14 @@ public class MinerNotFull extends Miner{
         Optional<Entity> notFullTarget =
                 world.findNearest(this.getPosition(), Ore.class);
 
-        if (!notFullTarget.isPresent() || !moveTo(world,
+        if (!notFullTarget.isPresent() || !moveToMiner(world,
                 notFullTarget.get(),
                 scheduler)
-                || !this.transform(world, scheduler, imageStore))
+                || !this.transformMiner(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
-                    this.actionPeriod);
+                    this.getActionPeriod());
         }
     }
 

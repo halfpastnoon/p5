@@ -7,6 +7,7 @@ import processing.core.*;
 public final class VirtualWorld extends PApplet
 {
     private static final int TIMER_ACTION_PERIOD = 100;
+    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
     private static final int VIEW_WIDTH = 640;
     private static final int VIEW_HEIGHT = 480;
@@ -129,7 +130,7 @@ public final class VirtualWorld extends PApplet
     {
         for (Entity entity : world.getEntities()) {
             if(entity instanceof Animatable){
-                if(entity.getClass() == Quake.class) ((Animatable)entity).scheduleActions(scheduler, world, imageStore, Quake.QUAKE_ANIMATION_REPEAT_COUNT);
+                if(entity.getClass() == Quake.class) ((Animatable)entity).scheduleActions(scheduler, world, imageStore, QUAKE_ANIMATION_REPEAT_COUNT);
 
                 else ((Animatable)entity).scheduleActions(scheduler, world, imageStore, 0);
             }

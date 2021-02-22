@@ -31,7 +31,7 @@ public abstract class Miner extends Animatable{
         return newPos;
     }
 
-    protected boolean moveTo(
+    protected boolean moveToMiner(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -54,7 +54,7 @@ public abstract class Miner extends Animatable{
         }
     }
 
-    protected boolean transform(
+    protected boolean transformMiner(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -62,12 +62,12 @@ public abstract class Miner extends Animatable{
         if (_transformHelp()) {
             Animatable miner = this.getClass() == MinerNotFull.class ?
                     Factory.createMinerFull(this.getId(), this.getResourceLimit(),
-                    this.getPosition(), this.actionPeriod,
+                    this.getPosition(), this.getActionPeriod(),
                     this.getAnimationPeriod(),
                     this.getImages())
                     :
                     Factory.createMinerNotFull(this.getId(), this.getResourceLimit(),
-                    this.getPosition(), this.actionPeriod,
+                    this.getPosition(), this.getActionPeriod(),
                     this.getAnimationPeriod(),
                     this.getImages());
 

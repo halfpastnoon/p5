@@ -27,7 +27,7 @@ public class Ore extends Executable{
         scheduler.unscheduleAllEvents(this);
 
         Animatable blob = Factory.createOreBlob(this.getId() + BLOB_ID_SUFFIX, pos,
-                this.actionPeriod / BLOB_PERIOD_SCALE,
+                this.getActionPeriod() / BLOB_PERIOD_SCALE,
                 BLOB_ANIMATION_MIN + rand.nextInt(
                         BLOB_ANIMATION_MAX
                                 - BLOB_ANIMATION_MIN),
