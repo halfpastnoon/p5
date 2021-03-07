@@ -2,6 +2,9 @@ import processing.core.PImage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public abstract class Miner extends Animatable{
 
@@ -14,21 +17,26 @@ public abstract class Miner extends Animatable{
 
     protected int getResourceLimit() {return resourceLimit;}
 
-    protected Point nextPositionMiner(WorldModel world, Point destPos)
+    protected Point nextPositionMiner(WorldModel world, Point destPos, PathingStrategy strat)
     {
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
+        Predicate<Point> canPassThrough = p -> !world.isOccupied(p) && world.withinBounds(p);
+        Function<Point, Stream<Point>> potentialNeighbors = PathingStrategy.CARDINAL_NEIGHBORS;
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
-
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = this.getPosition();
-            }
-        }
-
-        return newPos;
+//        int horiz = Integer.signum(destPos.x - this.getPosition().x);
+//        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
+//
+//        if (horiz == 0 || world.isOccupied(newPos)) {
+//            int vert = Integer.signum(destPos.y - this.getPosition().y);
+//            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
+//
+//            if (vert == 0 || world.isOccupied(newPos)) {
+//                newPos = this.getPosition();
+//            }
+//        }
+//
+//        return newPos;
+        List<Point> ret = strat.computePath(getPosition(), destPos, canPassThrough, (p1, p2) -> p1.distanceSquared(p2) <= 1, potentialNeighbors);
+        return ret.size() > 0 ? ret.get(0) : this.getPosition();
     }
 
     protected boolean moveToMiner(
@@ -40,7 +48,7 @@ public abstract class Miner extends Animatable{
             return true;
         }
         else {
-            Point nextPos = this.nextPositionMiner(world, target.getPosition());
+            Point nextPos = this.nextPositionMiner(world, target.getPosition(), new AStarPathingStrategy());
 
             if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
