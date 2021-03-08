@@ -15,15 +15,11 @@ class AStarPathingStrategy implements PathingStrategy
                             BiPredicate<Point, Point> withinReach,
                             Function<Point, Stream<Point>> potentialNeighbors)
     {
-        System.out.println("started");
         Stack<AEntry> closedList = new Stack<>();
 
         ArrayDeque<AEntry> openList = new ArrayDeque<>();
         AEntry current = new AEntry(start,0, Math.abs(start.x - end.x) + Math.abs(start.y - end.y), null);
-       // int startF = current.getF();
         while(!withinReach.test(current.getPos(), end)){ //start of step 3 on algorithm
-            System.out.println("Running");
-            System.out.println(current);
             List<Point> neighbors = potentialNeighbors.apply(current.getPos()) //get all valid neighbors
                     .filter(canPassThrough)
                     .filter(p -> !closedList.contains(new AEntry(p, 0, 0, null)))
@@ -61,7 +57,7 @@ class AStarPathingStrategy implements PathingStrategy
                 }
             }
             current = bestF;
-            if(bestF == null){ System.out.println("ranthis"); break;}
+            if(bestF == null) break;
         }
 
         AEntry starter = current;
@@ -70,9 +66,6 @@ class AStarPathingStrategy implements PathingStrategy
             ret.add(0, starter.getPos());
             starter = starter.getPrev();
         }
-
-        System.out.println("ran");
-        //System.out.println(ret.get(ret.size()-1));
         return ret;
     }
 
