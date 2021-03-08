@@ -21,20 +21,6 @@ public abstract class Miner extends Animatable{
     {
         Predicate<Point> canPassThrough = p -> !world.isOccupied(p) && world.withinBounds(p);
         Function<Point, Stream<Point>> potentialNeighbors = PathingStrategy.CARDINAL_NEIGHBORS;
-
-//        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-//        Point newPos = new Point(this.getPosition().x + horiz, this.getPosition().y);
-//
-//        if (horiz == 0 || world.isOccupied(newPos)) {
-//            int vert = Integer.signum(destPos.y - this.getPosition().y);
-//            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
-//
-//            if (vert == 0 || world.isOccupied(newPos)) {
-//                newPos = this.getPosition();
-//            }
-//        }
-//
-//        return newPos;
         List<Point> ret = strat.computePath(getPosition(), destPos, canPassThrough, (p1, p2) -> p1.distanceSquared(p2) <= 1, potentialNeighbors);
         return ret.size() > 0 ? ret.get(0) : this.getPosition();
     }
