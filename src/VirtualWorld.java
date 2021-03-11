@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import processing.core.*;
 
@@ -99,6 +102,24 @@ public final class VirtualWorld extends PApplet
             }
             view.shiftView(dx, dy);
         }
+    }
+
+    public void mousePressed()
+    {
+        Point pressed = mouseToPoint(mouseX, mouseY);
+        List<Point> neighbors = PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS.apply(pressed).collect(Collectors.toList());
+        world.setBackground(pressed, Factory.createBackground("void", imageStore));
+        for(Point i : neighbors){
+            world.setBackground(i, Factory.createBackground("void", imageStore));
+        }
+
+        redraw();
+
+    }
+
+    private Point mouseToPoint(int x, int y)
+    {
+        return new Point(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
 
     private static void loadImages(

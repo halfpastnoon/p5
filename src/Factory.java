@@ -86,6 +86,11 @@ public class Factory {
                         DEFAULT_IMAGE_NAME));
     }
 
+    public static Background createBackground(String id, ImageStore imageStore){
+        return new Background(id,
+                imageStore.getImageList(id));
+    }
+
     public static PImage createImageColored(int width, int height, int color) {
         PImage img = new PImage(width, height, PImage.RGB);
         img.loadPixels();
