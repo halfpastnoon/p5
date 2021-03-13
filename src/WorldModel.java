@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 public final class WorldModel
@@ -40,7 +41,7 @@ public final class WorldModel
     {
         List<Entity> ofType = new LinkedList<>();
         for (Entity entity : entities) {
-            if (entity.getClass() == c) {
+            if (c.isInstance(entity)) {
                 ofType.add(entity);
             }
         }

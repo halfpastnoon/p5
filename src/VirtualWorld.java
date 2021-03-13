@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -107,9 +108,15 @@ public final class VirtualWorld extends PApplet
     public void mousePressed()
     {
         Point pressed = mouseToPoint(mouseX, mouseY);
+        pressed = view.getViewport().viewportToWorld(pressed.x, pressed.y);
         List<Point> neighbors = PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS.apply(pressed).collect(Collectors.toList());
+        Optional<Entity> entity = world.getOccupant(pressed);
+        if(entity.isPresent() && entity.get().getClass().equals(OreBlob.class)) ((OreBlob) entity.get()).goNuts(world, scheduler, imageStore);
+
         world.setBackground(pressed, Factory.createBackground("void", imageStore));
         for(Point i : neighbors){
+            entity = world.getOccupant(i);
+            if(entity.isPresent() && entity.get().getClass().equals(OreBlob.class)) ((OreBlob) entity.get()).goNuts(world, scheduler, imageStore);
             world.setBackground(i, Factory.createBackground("void", imageStore));
         }
 

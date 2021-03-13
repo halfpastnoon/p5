@@ -26,6 +26,8 @@ public final class WorldView
         this.viewport = new Viewport(numRows, numCols);
     }
 
+    public Viewport getViewport(){ return viewport;}
+
     public void shiftView(int colDelta, int rowDelta) {
         int newCol = clamp(viewport.getCol() + colDelta, 0,
                 world.getNumCols() - viewport.getNumCols());

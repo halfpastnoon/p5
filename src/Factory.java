@@ -71,6 +71,16 @@ public class Factory {
         return new Vein(actionPeriod, id, position, images);
     }
 
+    public static Animatable createCannibalBlob(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new CannibalBlob(position, actionPeriod, animationPeriod, images, id);
+    }
+
     public static Action createAnimationAction(Animatable entity, int repeatCount) {
         return new Animation(entity, repeatCount);
     }

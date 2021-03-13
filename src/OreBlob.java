@@ -7,12 +7,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class OreBlob extends Animatable{
+public class OreBlob extends Blob{
 
     private static final String QUAKE_KEY = "quake";
+    private static final String CANNIBAL_KEY = "cblob";
 
     public OreBlob(Point position, int actionPeriod, int animationPeriod, List<PImage> images, String id) {
-        super(position, images, 0, id, actionPeriod, animationPeriod);
+        super(position, actionPeriod, animationPeriod, images, id);
     }
 
     public void executeActivity(
@@ -27,7 +28,7 @@ public class OreBlob extends Animatable{
         if (blobTarget.isPresent()) {
             Point tgtPos = blobTarget.get().getPosition();
 
-            if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
+            if (moveToBlob(world, blobTarget.get(), scheduler)) {
                 Animatable quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
 
@@ -42,40 +43,18 @@ public class OreBlob extends Animatable{
                 nextPeriod);
     }
 
-    private boolean moveToOreBlob(
+    public void goNuts(
             WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
+            EventScheduler scheduler,
+            ImageStore imageStore)
     {
-        if (getPosition().adjacent(target.getPosition())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
-        }
-        else {
-            Point nextPos = this.nextPositionOreBlob(world, target.getPosition(), new AStarPathingStrategy());
+        Animatable blob = Factory.createCannibalBlob(this.getId(), this.getPosition(),
+                this.getActionPeriod()/2, this.getAnimationPeriod(), imageStore.getImageList(CANNIBAL_KEY));
 
-            if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
+        world.removeEntity(this);
+        scheduler.unscheduleAllEvents(this);
 
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
-
-    private Point nextPositionOreBlob(WorldModel world, Point destPos, PathingStrategy strat)
-    {
-        Predicate<Point> canPassThrough = p -> {
-            Optional<Entity> occupant = world.getOccupant(p);
-            return !(occupant.isPresent() && !(occupant.get().getClass() == Ore.class)) && world.withinBounds(p);
-        };
-        Function<Point, Stream<Point>> potentialNeighbors = PathingStrategy.CARDINAL_NEIGHBORS::apply;
-        List<Point> ret = strat.computePath(getPosition(), destPos, canPassThrough, (p1, p2) -> p1.distanceSquared(p2) <= 1, potentialNeighbors);
-        return ret.size() > 0 ? ret.get(0) : this.getPosition();
-
+        world.addEntity(blob);
+        blob.scheduleActions(scheduler, world, imageStore, 0);
     }
 }

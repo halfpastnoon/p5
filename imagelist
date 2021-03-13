@@ -30,3 +30,15 @@ dirt images/dirt.bmp
 vein images/vein.bmp
 background_default images/none.bmp
 void images/void.bmp
+cblob images/cblob1.bmp 255 255 255 0
+cblob images/cblob2.bmp 255 255 255 0
+cblob images/cblob3.bmp 255 255 255 0
+cblob images/cblob4.bmp 255 255 255 0
+cblob images/cblob5.bmp 255 255 255 0
+cblob images/cblob6.bmp 255 255 255 0
+cblob images/cblob7.bmp 255 255 255 0
+cblob images/cblob8.bmp 255 255 255 0
+cblob images/cblob9.bmp 255 255 255 0
+cblob images/cblob10.bmp 255 255 255 0
+cblob images/cblob11.bmp 255 255 255 0
+cblob images/cblob12.bmp 255 255 255 0
