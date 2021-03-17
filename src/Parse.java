@@ -56,6 +56,7 @@ public class Parse {
     private static final int VEIN_COL = 2;
     private static final int VEIN_ROW = 3;
     private static final int VEIN_ACTION_PERIOD = 4;
+    public static final String ROBBER_KEY = "rob";
 
 
     public static void processImageLine(
@@ -141,6 +142,8 @@ public class Parse {
                     return parseOre(properties, world, imageStore);
                 case SMITH_KEY:
                     return parseSmith(properties, world, imageStore);
+                case ROBBER_KEY:
+                    return parseZapper(properties, world, imageStore);
                 case VEIN_KEY:
                     return parseVein(properties, world, imageStore);
             }
@@ -180,7 +183,24 @@ public class Parse {
 
         return properties.length == MINER_NUM_PROPERTIES;
     }
+    private static boolean parseZapper(
+            String[] properties, WorldModel world, ImageStore imageStore) {
+        if (properties.length == MINER_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
+                    Integer.parseInt(properties[MINER_ROW]));
+            Entity entity = Factory.createZapperNotFull(properties[MINER_ID],
+                    Integer.parseInt(
+                            properties[MINER_LIMIT]),
+                    pt, Integer.parseInt(
+                            properties[MINER_ACTION_PERIOD]), Integer.parseInt(
+                            properties[MINER_ANIMATION_PERIOD]),
+                    imageStore.getImageList(
+                            ROBBER_KEY));
+            world.tryAddEntity(entity);
+        }
 
+        return properties.length == MINER_NUM_PROPERTIES;
+    }
     private static boolean parseObstacle(
             String[] properties, WorldModel world, ImageStore imageStore) {
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {

@@ -15,7 +15,7 @@ public abstract class Miner extends Animatable{
         this.resourceLimit = resourceLimit;
     }
 
-    protected int getResourceLimit() {return resourceLimit;}
+    public int getResourceLimit() {return resourceLimit;}
 
     protected Point nextPositionMiner(WorldModel world, Point destPos, PathingStrategy strat)
     {

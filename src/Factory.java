@@ -14,7 +14,26 @@ public class Factory {
     {
         return new Blacksmith(position, images, id);
     }
-
+    public static Animatable createZapperFull(
+            String id,
+            int resourceLimit,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new ZapperFull(id, position, images, resourceLimit, actionPeriod, animationPeriod);
+    }
+    public static Animatable createZapperNotFull(
+            String id,
+            int resourceLimit,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images)
+    {
+        return new ZapperNotFull(id, position, images, resourceLimit, 0, actionPeriod, animationPeriod);
+    }
     public static Animatable createMinerFull(
             String id,
             int resourceLimit,
