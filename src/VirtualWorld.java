@@ -110,9 +110,9 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         pressed = view.getViewport().viewportToWorld(pressed.x, pressed.y);
         if (!world.isOccupied(pressed)) {
-            Animatable f = Factory.createZapperNotFull("zap", 2, pressed, 900, 200, imageStore.getImageList("zap"));
+            Animatable f = Factory.createZapperNotFull("zap", 2, pressed, 900, 50, imageStore.getImageList("zap"));
             world.addEntity(f);
-            f.scheduleActions(scheduler, world, imageStore, 1);
+            f.scheduleActions(scheduler, world, imageStore, 0);
         }
         List<Point> neighbors = PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS.apply(pressed).collect(Collectors.toList());
         Optional<Entity> entity = world.getOccupant(pressed);
