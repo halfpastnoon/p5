@@ -1,0 +1,8 @@
+1) To trigger the event, click anywhere on the map
+2) if the space that you clicked is empty, the zapper should spawn and if there are oreblobs in any of the cardinal or diagonal directions from the site of the click they should turn into cannibal blobs
+3) the cannibal blobs are beings of pure rage. They were born to seek vengeance on the miners for creating blobs in the first place as a result of mining the ores. They roam around the map eating miners.
+4) the new entity is a zapper. Born of the cannibal blobs' rage, it is far worse than the blobs. It eats the souls of the miners, freezing them in place by replacing them with not full miners and not scheduling their actions. 
+   After it collects 2 souls it deposits them at the blacksmith's shop.
+   What these miners don't know is that when infused with souls, the ores do something sinister (that's as far as our headcanon goes)
+5) Michael Noon - created the mousepressed event in VirtualWorld and created the cannibal blobs
+   Samyak Jain  - created the zapper
